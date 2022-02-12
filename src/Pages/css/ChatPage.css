@@ -1,0 +1,22 @@
+html {
+  font-size: 62.5%;
+}
+
+.chatpage__container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 7fr 3fr;
+      grid-template-columns: 2fr 7fr 3fr;
+}
+
+.chatpage {
+  padding-top: 10rem;
+}
+
+@media (max-width: 75em) {
+  .chatpage__container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+/*# sourceMappingURL=ChatPage.css.map */

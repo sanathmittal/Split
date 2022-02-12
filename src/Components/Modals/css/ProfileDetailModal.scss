@@ -1,0 +1,78 @@
+html{
+    font-size: 62.5%;
+}
+
+.profiledetailmodal{
+    z-index: 100;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    // margin-left: auto;
+    // margin-right: auto;
+    padding: 3.2rem;
+    border-radius: 3rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+}
+
+.profiledetailmodal-top{
+    display: flex;
+    gap: 3.2rem;
+}
+.profiledetailmodal-top>img{
+    width: 12.5rem;
+    height:12.5rem;
+    border-radius: 50%;
+}
+.profiledetailmodal-top>p{
+    font-size: 1.8rem;
+    margin-top: 4rem;
+}
+.profiledetailmodal-top>p>span{
+    color: grey;
+}
+.profiledetailmodal-top-button-notconnected{
+    font-size: 1.8rem;
+    background-color: #fff;
+    border: 1px solid #70ec70;
+    color: #70ec70;
+    width: 13rem;
+    height: 2.8rem;
+    box-shadow: (2px 2px 4px rgb(91, 112, 95));
+    cursor: pointer;
+    border-radius: 1rem;
+    margin-top: 4rem;
+}
+.profiledetailmodal-top-button-self{
+    display: none;
+}
+.profiledetailmodal-top-button-connected{
+    font-size: 1.8rem;
+    background-color: #70ec70;
+    border: 1px solid #70ec70;
+    color: #ffffff;
+    width: 13rem;
+    height: 2.8rem;
+    box-shadow: (2px 2px 4px rgb(91, 112, 95));
+
+    border-radius: 1rem;
+    margin-top: 4rem;
+}
+
+.profiledetailmodal-bottomtext{
+    // max-width: 55rem;
+    margin-top: 2rem;
+    margin-left: 1.2rem;
+}
+.profiledetailmodal-bottomtext-name{
+    font-size: 3.2rem;
+    
+}
+.profiledetailmodal-bottomtext-bio{
+    margin-top:0.4rem ;
+    font-size: 1.7rem;
+  max-width: 55rem;
+    color: grey;
+}

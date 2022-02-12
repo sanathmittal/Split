@@ -1,0 +1,16 @@
+html{
+    font-size: 62.5%;
+}
+.chatpage__container{
+    display: grid;
+    grid-template-columns: 2fr 7fr 3fr ;
+}
+.chatpage{
+    padding-top:10rem ;
+}
+
+@media (max-width: 75em) {
+    .chatpage__container{
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,89 @@
+html{
+    font-size: 62.5%;
+}
+.post{
+  background-color: #fafafa;
+  border: 1px solid rgb(206, 206, 206);
+  max-width: 85rem;
+  border-radius: 10px;
+  margin-left: 1.6rem;
+  margin-right: 1.6rem;
+  margin-bottom: 1.2rem;
+
+}
+.post__top{
+   display: flex;
+max-width: 86rem;
+   border-bottom:1px solid rgb(224, 224, 224);
+   padding: 1rem;
+   padding-left: 2.4rem;
+    gap: 1.2rem;
+}
+.post__top>img{
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.post__top>img:hover{
+   transform: scale(1.1);
+}
+.post__top>p{
+   font-size: 2.2rem;
+   margin-top: 0.6rem;
+   cursor: pointer;
+}
+.post__top-name:hover{
+   text-decoration: underline;
+}
+.post__top-date{
+  font-size: 1.4rem;
+  margin-top: 1.3rem;
+  margin-left: -0.8rem;
+  color: grey;
+}
+.post__top-date:hover{
+   text-decoration:solid !important;
+}
+.post-content{
+   display: flex;
+   flex-direction: column;
+   gap: 1.2rem;
+   padding-left: 1.6rem;
+   margin-top: 1.2rem;
+   padding-right: 6.4rem;
+   border-bottom: 1px solid rgb(224, 224, 224);
+   cursor: pointer;
+}
+.post-content>p{
+   font-size: 1.8rem;
+   max-width: 75rem;
+   margin-bottom: 1.2rem;
+}
+.post-content>img{
+   max-width: 75rem;
+    height: 40rem;
+}
+.post__footer{
+
+}
+.post__actions{
+    margin-left: 3.2rem;
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+  display: flex;
+  gap: 2.4rem;
+}
+.post__action{
+   display: flex;
+   gap: 0.4rem;
+}
+.post__action>img:hover{
+   transform: scale(1.15);
+}
+.post__action>p{
+    font-size: 2.2rem;
+}
+// .post__likeicon{
+//     margin-bottom: 1rem;
+// }

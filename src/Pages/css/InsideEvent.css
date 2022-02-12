@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rubik:wght@300;350;400;500;600;700&display=swap");
+html {
+  font-size: 62.5%;
+}
+
+.insideeventpage__container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 7fr 3fr;
+      grid-template-columns: 2fr 7fr 3fr;
+}
+
+.insideeventpage__posts-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.insideeventpage {
+  padding-top: 10rem;
+  font-family: "Rubik", sans-serif;
+  border-left: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.insideeventpage::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+.insideeventpage > button {
+  width: 16rem;
+  height: 4.5rem;
+  font-size: 2.2rem;
+  background-color: #70ec70;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  position: fixed;
+  bottom: 3.2rem;
+  right: 30%;
+  -webkit-box-shadow: 2px 5px 6px rgba(107, 141, 98, 0.8);
+          box-shadow: 2px 5px 6px rgba(107, 141, 98, 0.8);
+  cursor: pointer;
+}
+
+.insideeventpage__posts {
+  margin-bottom: 6.4rem;
+}
+
+@media (max-width: 75em) {
+  .insideeventpage__container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  .insideeventpage {
+    padding-top: 17rem;
+  }
+}
+/*# sourceMappingURL=InsideEvent.css.map */

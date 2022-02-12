@@ -1,0 +1,55 @@
+html {
+  font-size: 62.5%;
+}
+
+.postdetailspage__container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 7fr 3fr;
+      grid-template-columns: 2fr 7fr 3fr;
+}
+
+.postdetailspage {
+  padding-top: 8rem;
+  padding-bottom: 1.2rem;
+  border-left: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.postdetailspage::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+.postdetailspage__comments-container {
+  background-color: #e9e9e9;
+  padding-bottom: 9.4rem;
+  padding-top: 4.8rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.postdetailspage__comments {
+  margin-left: 3.2rem;
+}
+
+.postdetailspage__nocomments {
+  font-size: 2.4rem;
+  margin-top: 2rem;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 75em) {
+  .postdetailspage__container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+/*# sourceMappingURL=PostDetails.css.map */

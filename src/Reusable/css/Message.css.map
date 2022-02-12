@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAA;EACA,SAAS,EAAE,KAAK;CACnB;;AACD,AAAA,QAAQ,CAAA;EACJ,UAAU,EAAE,OAAO;EACnB,OAAO,EAAE,MAAM;EACf,SAAS,EAAE,KAAK;CACnB;;AACD,AAAA,QAAQ,GAAC,CAAC,CAAA;EACR,SAAS,EAAE,MAAM;CAClB",
+    "sources": [
+        "Message.scss"
+    ],
+    "names": [],
+    "file": "Message.css"
+}

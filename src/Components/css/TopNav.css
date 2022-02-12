@@ -1,0 +1,78 @@
+html {
+  font-size: 62.5%;
+}
+
+.topnav {
+  background-color: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  top: 0;
+  left: 16.66%;
+  right: 25%;
+  padding-left: 1.2rem;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+  z-index: 3;
+}
+
+.topnav__icons {
+  display: none;
+}
+
+.topnav__menu {
+  height: 4rem;
+  width: 4em;
+}
+
+.topnav__avatar {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border: 1px solid #5e5efd;
+}
+
+.topnav__below {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.topnav__backarrow {
+  cursor: pointer;
+}
+
+.topnav__text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.2rem;
+  margin-left: 2.4rem;
+}
+
+.topnav__page-heading {
+  font-size: 2.8rem;
+  font-weight: 400;
+}
+
+.topnav__page-info {
+  font-size: 1.6rem;
+}
+
+@media (max-width: 75em) {
+  .topnav__icons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 1.6rem;
+    margin-left: 1.2rem;
+    margin-bottom: 1.6rem;
+  }
+  .topnav {
+    left: 0;
+    right: 0;
+  }
+}
+/*# sourceMappingURL=TopNav.css.map */

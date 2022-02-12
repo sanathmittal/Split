@@ -1,0 +1,154 @@
+html{
+    font-size: 62.5%;
+}
+
+
+.eventcard{
+  height: 42rem;
+  max-width:35rem ;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 1px 2px 10px  rgba(107, 141, 98, 0.8);
+ 
+}
+.eventcard>img{
+    height: 18rem;
+   // max-width: 35rem;
+   width: 100%;
+    object-fit: fill;
+    border-radius: 10px 10px 0 0;
+}
+.card-topinfo{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 1.6rem;
+  padding-right: 1.8rem;
+  margin-bottom: 1rem;
+  margin-top: 1.2rem;
+}
+.card-heading{
+  font-size: 2.2rem;
+}
+.card-participants{
+  font-size: 1.4rem;
+  color: #6f6f6f;
+  margin-top: 0.7rem;
+}
+.card-des{
+   font-size: 1.6rem;
+   max-width: 30rem;
+   margin-left: 1.6rem;
+   margin-bottom: 2.8rem;
+   margin-right: 1rem;
+}
+.card-bottom{
+  display: flex;
+  justify-content: space-between;
+   padding-right: 2rem;
+   padding-left: 1rem;
+}
+.card-bottom>img{
+  margin-top: 0.8rem;
+  margin-left: 1rem;
+ width: 3.2rem;
+ height: 3.2rem;
+}
+.card-bottom__buttons{
+   
+}
+.button-join{
+  margin-right: 1.6rem;
+  margin-top: 8px;
+  height: 3.2rem;
+  width: 8.5rem;
+  background-color: #70ec44;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  box-shadow: 1px 2px 4px  rgba(107, 141, 98, 0.8);
+  cursor: pointer;
+}
+.button-engage{
+  margin-right: 1.6rem;
+  margin-top: 8px;
+  height: 3.2rem;
+  width: 8.5rem;
+  background-color: #6C63FF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  box-shadow: 1px 2px 4px  rgba(99, 98, 141, 0.8);
+  cursor: pointer;
+}
+.button-details{
+    height: 3.2rem;
+    width: 8.5rem;
+    background-color: #fff;
+    color: #70ec44;
+    font-size: 1.8rem;
+    border: 2px solid #70ec44;
+    border-radius:5px ;
+    box-shadow: 1px 2px 4px  rgba(148, 253, 120, 0.8);
+    cursor: pointer;
+}
+@media (max-width:25em){
+
+.card-topinfo{
+ 
+  padding-left: 1.6rem;
+  padding-right: 1.8rem;
+  margin-bottom: 1rem;
+  margin-top: 1.2rem;
+}
+.card-heading{
+  font-size: 2rem;
+}
+.card-participants{
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
+}
+.card-des{
+   font-size: 1.5rem;
+ 
+   margin-left: 1.6rem;
+   margin-bottom: 4rem;
+   margin-right: 1.4rem;
+}
+.card-bottom{
+  display: flex;
+  justify-content: space-between;
+   padding-right: 2rem;
+   padding-left: 1rem;
+}
+.card-bottom>img{
+  margin-top: 0.8rem;
+  margin-left: 1rem;
+ width: 3rem;
+ height: 3rem;
+}
+
+.button-join{
+  margin-right: 1.6rem;
+  margin-top: 8px;
+  height: 3rem;
+  width: 8rem;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  box-shadow: 1px 2px 4px  rgba(107, 141, 98, 0.8);
+}
+.button-engage{
+  margin-right: 1.6rem;
+  margin-top: 8px;
+  height: 3rem;
+  width: 8rem;
+  font-size: 1.6rem;
+}
+.button-details{
+    height: 3rem;
+    width: 8rem;
+    font-size: 1.6rem;
+
+}
+}

@@ -1,0 +1,30 @@
+html {
+  font-size: 62.5%;
+}
+
+.avatardropdown {
+  position: absolute;
+  background-color: #f5f4f4;
+  border-radius: 1rem;
+  margin-top: 3.6rem;
+  margin-left: 1.2rem;
+  z-index: 2;
+  height: 32rem;
+  overflow-y: scroll;
+  border: 1px solid #999999;
+}
+
+.avatardropdown-category {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2.4rem;
+  padding: 2rem;
+  border-bottom: 1px solid grey;
+}
+
+.avatardropdown-category-avatar {
+  cursor: pointer;
+}
+/*# sourceMappingURL=AvatarDropdown.css.map */

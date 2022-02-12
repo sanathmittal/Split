@@ -1,0 +1,22 @@
+html {
+  font-size: 62.5%;
+}
+
+.postimagepreview-img {
+  height: 37rem;
+  width: 65rem;
+}
+
+.postimagepreview {
+  position: relative;
+}
+
+.postimagepreview-cancel {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  height: 4rem;
+  width: 4rem;
+  cursor: pointer;
+}
+/*# sourceMappingURL=PostImagePreview.css.map */

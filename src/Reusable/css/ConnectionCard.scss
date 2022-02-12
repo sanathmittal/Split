@@ -1,0 +1,50 @@
+html{
+  font-size: 62.5%;    
+}
+.connection-card{
+    display: flex;
+    gap: 1.6rem;
+    background: #fafafa;
+    border: 1px solid rgb(63, 243, 27);
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+    padding-left: 2.4rem;
+    border-radius: 2rem;
+    box-shadow: 3px 5px 6px  rgba(0, 0, 0, 0.25);
+    margin-bottom: 2.4rem;
+    font-family: "Rubik", sans-serif;
+    justify-content: space-between;
+}
+.connection-card__info{
+  display: flex;
+  gap: 1.6rem;
+
+}
+.connection-card__info>img{
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+}
+.connection-card__text{
+
+}
+.connection-card__name{
+   font-size: 2rem;
+   margin-bottom: 1rem;
+}
+.connection-card__connectiondate{
+   font-size: 1.6rem;
+}
+.connection-card>button{
+    margin-top: 0.4rem;
+    margin-right: 3.2rem;
+    width: 8rem;
+    height: 2.6rem;
+    font-size: 1.4rem;
+    color: #EC5844;
+    border: 1px solid #EC5844;
+    background: transparent;
+    border-radius: 5px;
+    box-shadow: 2px 3px 5px  rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}

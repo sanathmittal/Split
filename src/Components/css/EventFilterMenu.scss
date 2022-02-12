@@ -1,0 +1,30 @@
+html{
+    font-size: 62.5%;
+}
+.eventfiltermenu{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background-color: #fff;
+    z-index: 8;
+    padding: 2.4rem;
+    max-width: 15rem;
+    position: fixed;
+    right: 10%;
+}
+.eventfiltermenu>p{
+    font-size: 2rem;
+    color: grey;
+    cursor: pointer;
+}
+
+@media (max-width:25em){
+   .eventfiltermenu{
+       padding: 2rem;
+       right: 16%;
+       gap: 1rem;
+   }
+   .eventfiltermenu>p{
+       font-size: 1.8rem;
+   }
+}

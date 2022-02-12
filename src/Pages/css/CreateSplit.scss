@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rubik:wght@300;350;400;500;600;700&display=swap");
+
+html{
+    font-size: 62.5%;
+}
+.createsplitpage__container{
+    display: grid;
+    grid-template-columns: 2fr 7fr 3fr;
+    // overflow-y: hidden;
+    height: 100vh;
+}
+.createsplitpage{
+   padding-top: 10rem;
+   font-family: "Rubik", sans-serif;
+   padding-bottom: 6.4rem;
+   border-left: 1px solid rgb(226, 226, 226);
+   border-right: 1px solid rgb(226, 226, 226);
+   height: 100vh;
+   overflow-y: scroll;
+  
+}
+.createsplitpage::-webkit-scrollbar{
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.createsplitpage__heading{
+    margin-left: 3.2rem;
+  font-size: 3.2rem;
+  color: rgb(48, 48, 133);
+}
+.createsplitpage__form{
+    margin-top: 6.4rem;
+    margin-left: 2.4rem;
+    margin-right: 1.6rem;
+}
+.createsplitpage__form-avatar{
+   display: flex;
+  gap: 2.4rem;
+  margin-left: 1.2rem;
+}
+.createsplitpage__form-avatar>img{
+   height: 7rem;
+   width: 7rem;
+   border-radius: 50%;
+}
+.createsplitpage__form-avatardropdown{
+  display: flex;
+ align-self: flex-start;
+ gap: 0.6rem;
+ position: relative;
+
+}
+.createsplitpage__form-avatardropdown>img{
+  cursor: pointer;
+}
+.createsplitpage__form-avatardropdown>p{
+    margin-top: 0.6rem;
+  font-size: 1.8rem;
+}
+
+.createsplitpage__form-entry{
+   margin-top: 2.4rem;
+   display: flex;
+   gap: 5rem;
+   margin-bottom: 4rem;
+ 
+}
+.createsplitpage__form-entry>p{
+   font-size: 2.4rem;
+   text-align: right;
+   max-width: 10rem;
+}
+.createsplitpage__form-entry-input{
+   display: flex;
+   flex-direction: column;
+   gap: 1.2rem;
+   max-width: 50rem;
+  
+}
+.createsplitpage__form-entry-input>p{
+  font-size: 1.6rem;
+  color: grey;
+}
+.createsplitpage__form-entry-input>input{
+  height: 4rem;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  color: grey;
+  padding: 0rem 0.8rem;
+  border: 2px solid rgb(161, 161, 161);
+}
+.createsplitpage__form-entry-input>textarea{
+  height: 12.5rem;
+  border-radius: 1rem;
+  font-size: 1.8rem;
+  color: grey;
+  padding: 0.6rem;
+  border: 2px solid rgb(161, 161, 161);
+}
+.bio{
+  margin-left: 2.4rem;
+}
+.createsplitpage__form-checkbox{
+  margin-left: 3.2rem;
+    display: flex;
+    gap: 5.2rem;
+}
+.createsplitpage__form-checkbox>p{
+  font-size: 1.8rem;
+  color: #494949;
+  max-width: 50rem;
+}
+.createsplitpage__form-checkbox>input{
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-top: 0.8rem;
+}
+.createsplit-error{
+  color: rgb(255, 66, 66);
+  font-size: 2.2rem;
+  margin: 2rem;
+
+}
+.createsplitpage__form>button{
+  margin-top: 6.4rem;
+  width: 16rem;
+  height: 4.5rem;
+  font-size: 2.2rem;
+  background-color: #70ec70;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: (2px 3px 4px rgb(92, 77, 77));
+  cursor: pointer;
+}
+
+@media (max-width: 75em) {
+    .createsplitpage__container{
+        grid-template-columns: 1fr;
+    }
+    .createsplitpage{
+      padding-top: 15rem;
+    }
+}

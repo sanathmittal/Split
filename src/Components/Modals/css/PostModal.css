@@ -1,0 +1,79 @@
+html {
+  font-size: 62.5%;
+}
+
+.postmodal {
+  background: #fff;
+  position: absolute;
+  left: 25%;
+  top: 10%;
+  z-index: 100;
+  padding: 2.8rem;
+  border-radius: 3rem;
+}
+
+.postmodal-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.postmodal-text > img {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+}
+
+.postmodal-text-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.postmodal-text-content > textarea {
+  width: 50rem;
+  height: 10rem;
+  border: none;
+  outline: none;
+  padding: 0.8rem;
+  font-size: 2rem;
+}
+
+.postmodal-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 1.2rem;
+}
+
+.postmodal-actions > label > img {
+  margin-left: 4.4rem;
+  cursor: pointer;
+}
+
+.postmodal-actions > input {
+  display: none;
+}
+
+.postmodal-actions > button {
+  width: 12rem;
+  font-size: 2rem;
+  height: 3.6rem;
+  color: #fff;
+  background-color: #70ec70;
+  border: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 4px 4px #5fb15f;
+          box-shadow: 2px 4px 4px #5fb15f;
+  margin-top: 0.7rem;
+  cursor: pointer;
+}
+/*# sourceMappingURL=PostModal.css.map */

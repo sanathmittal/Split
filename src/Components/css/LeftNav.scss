@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap");
+html{
+    font-size: 62.5%;
+    font-family: "Rubik", sans-serif;
+}
+
+.leftnav{
+         text-align: center;
+         padding-top: 3.2rem;
+      
+}
+.leftnavmobile{
+    text-align: center;
+    padding-top: 3.2rem;   
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    height: 100vh;
+    width: 30%;
+ background-color: #fff;
+}
+.leftnav-heading{
+    font-size: 4.8rem;
+  color: #70ec44;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-decoration: none;
+  margin-bottom: 3.2rem;
+}
+.leftnav-button{
+       width: 16rem;
+       height: 4.8rem;
+       border-radius: 10px;
+       background-color: #70ec44;
+       color: #fff;
+       font-size: 2rem;
+       border: none;
+       margin-bottom: 4.8rem;
+   cursor: pointer;
+}
+.leftnav-options{
+  justify-content: center;
+  margin-left: 1.6rem;
+     
+  display: grid;
+  flex-direction: column;
+  gap: 2rem;
+  margin-right: 1rem;
+  
+}
+.leftnav-option{
+   display: flex;
+   gap:1.2rem;   
+   cursor: pointer;
+  
+}
+.options-container{
+    display: flex;
+    justify-content: center;
+}
+#resources{
+    margin-left: 0.1rem;
+}
+#help{
+    margin-left: 0.5rem;
+}
+.option-des{
+ font-size: 2.2rem;
+}
+
+@media (max-width: 50em) {
+    .leftnavmobile{
+        width: 40%;
+    }
+}
+@media (max-width: 31em) {
+    .leftnavmobile{
+        width: 60%;
+    }
+}

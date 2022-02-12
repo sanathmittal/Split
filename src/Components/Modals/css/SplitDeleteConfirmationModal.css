@@ -1,0 +1,89 @@
+html {
+  font-size: 62.5%;
+}
+
+.splitdeleteconfirmationmodal {
+  z-index: 100;
+  background-color: #fff;
+  position: absolute;
+  display: block;
+  left: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 25%;
+  padding: 3.2rem;
+  border-radius: 3rem;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.splitdeleteconfirmationmodal__heading {
+  font-size: 2.8rem;
+  max-width: 50rem;
+}
+
+.splitdeleteconfirmationmodal__subheading {
+  max-width: 50rem;
+  font-size: 2rem;
+  color: grey;
+}
+
+.splitdeleteconfirmationmodal__buttons {
+  margin-top: 3.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.splitdeleteconfirmationmodal__yes {
+  width: 11rem;
+  height: 3.5rem;
+  background-color: #fff;
+  color: #C1272D;
+  border: 2px solid #C1272D;
+  font-size: 1.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.splitdeleteconfirmationmodal__no {
+  width: 11rem;
+  height: 3.5rem;
+  background-color: #fff;
+  border: 2px solid #000;
+  font-size: 1.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 37em) {
+  .splitdeleteconfirmationmodal {
+    padding: 2.4rem;
+  }
+  .splitdeleteconfirmationmodal__heading {
+    font-size: 2.2rem;
+  }
+  .splitdeleteconfirmationmodal__subheading {
+    margin-top: 0.6rem;
+    font-size: 1.8rem;
+  }
+  .splitdeleteconfirmationmodal__buttons {
+    margin-top: 2.4rem;
+    margin-right: 1.6rem;
+    gap: 1.6rem;
+  }
+  .splitdeleteconfirmationmodal__yes {
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.6rem;
+  }
+  .splitdeleteconfirmationmodal__no {
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+  }
+}
+/*# sourceMappingURL=SplitDeleteConfirmationModal.css.map */

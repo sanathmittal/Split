@@ -1,0 +1,40 @@
+html{
+    font-size: 62.5%;
+}
+.profilesettingsmodal{
+    background-color: #fff;
+    z-index: 100;
+    height: 32rem;
+    width: 32rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    text-align: center;
+     border-radius: 3rem;
+     align-self: center;
+    left: 50%;
+    transform: translateX(-50%);
+     cursor: pointer;
+     margin-bottom: 8.4rem;
+     position: absolute;
+    
+}
+.profilesettingsmodal>p{
+    font-size: 2.8rem;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    margin-top: 2rem;
+  
+}
+
+
+@media (max-width: 32em) {
+       .profilesettingsmodal{
+           width: 28rem;
+           height: 26rem;
+
+       }
+       .profilesettingsmodal>p{
+           font-size: 2.4rem;
+           margin-top: 1.6rem;
+       }
+}

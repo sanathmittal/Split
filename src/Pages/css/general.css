@@ -1,0 +1,88 @@
+/*
+--- 01 TYPOGRAPHY SYSTEM
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 28/ 32 / 36 / 40 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Font weights
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+- Line heights
+Default: 1
+Small: 1.05
+Medium: 1.2
+Paragraph default: 1.6
+Large: 1.8
+
+- Letter spacing
+-0.5px
+0.75px
+
+--- 02 COLORS
+
+-blue-
+#281E6F
+
+green-
+
+#edfde8
+#caf8ba
+#a6f38b
+#83ef5d
+#70EC44     --main
+#60ea2f
+#46d015
+#37a210
+
+
+
+- Accents:
+- Greys
+
+#888
+#767676 (lightest grey allowed on #fff)
+#6f6f6f (lightest grey allowed on #fdf2e9)
+#555
+#333
+
+--- 05 SHADOWS
+
+0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+
+--- 06 BORDER-RADIUS
+
+Default: 5px
+Medium: 10px
+
+--- 07 WHITESPACE
+
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+
+
+
+
+
+
+  /*
+  <BreakpointProvider>
+        <div className='__container'>
+        {showLeftNav && <Backdrop onClick={()=>{setShowLeftNav(false)}}></Backdrop>}
+     <Breakpoint customQuery="(min-width: 1200px)">
+            <LeftNav ></LeftNav>
+            </Breakpoint>
+            <LeftNavMobile show={showLeftNav} ></LeftNavMobile> 
+            <div className='eventdetails-page'>
+              <TopNav heading={"Heritagecontest"} onMenuClick={()=>{setShowLeftNav(true)}}></TopNav>
+              </div>
+                 
+            <Breakpoint customQuery="(min-width: 1200px)">
+            <RightNav></RightNav>
+            </Breakpoint>
+        </div>
+        </BreakpointProvider>
+  */

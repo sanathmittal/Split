@@ -1,0 +1,21 @@
+html{
+    font-size: 62.5%;
+}
+.image{
+    background: #d6d6d6;
+     max-width: 19.6rem;
+    // padding: 0.3rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    border-radius: 1rem;
+    object-fit: contain;
+}
+.image>img{
+   
+    height: 29rem;
+    width: 19rem;
+    display: block;
+    margin: 0 auto;
+}
