@@ -14,10 +14,10 @@ function App() {
   const [uid ,setuid]=useState('')
   const [username, setusername] = useState(null)
   const [useremail, setuseremail] = useState(null)
-  const [usersplits, setusersplits] = useState(null)
+  const [usersplitscount, setusersplitscount] = useState(null)
   const [userdp, setuserdp] = useState(null)
   const [userconnections, setuserconnections] = useState(null)
-
+   const [userSplits,setuserSplits]=useState([])
   
 
   // this function is being called 3 times
@@ -55,7 +55,7 @@ function App() {
     if(user){
       const docRef = collection(db, "users",uid ,"Splits");
       const docSnap = await getDocs(docRef);
-      setusersplits(docSnap.size)
+      setusersplitscount(docSnap.size)
     
     }
     else{
@@ -92,9 +92,40 @@ function App() {
       }
     });
   },[])
+  const splits = [];
 
+  // useEffect(async () => {
+  
+  //   if(uid=== ''){
+  //     return;
+  //   }
+  
+  //   const q = collection(db, "users",uid,"Splits");
+  
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     // doc.data() is never undefined for query doc snapshots
+  //     // console.log(doc.data())
+  
+  //       // console.log(doc.id, " => ", doc.data());
+  //     const data = doc.data();
+  //     splits.push({ ...data, splitId: doc.id });
+  //     // setuserSplits(oldArray => [...oldArray,{...data,splitId:doc.id}] );
+ 
+  //   });
+  
+  //     setuserSplits([...splits]) 
+     
+  // // console.log(querySnapshot)
+  //   // setuserSplits(splits);
+  //   // // console.log(splits)
+  // console.log(userSplits)
+  // }, [uid]);
+
+
+//,usersplits:userSplits
   return (
-   <AuthContext.Provider value={{uid:uid,user:user,username:username,useremail:useremail,usersplits:usersplits,userconnections:userconnections,userdp:userdp}}>
+   <AuthContext.Provider value={{uid:uid,user:user,username:username,useremail:useremail,usersplits:usersplitscount,userconnections:userconnections,userdp:userdp}}>
     <Routes></Routes>
     </AuthContext.Provider>
  

@@ -47,7 +47,7 @@ import ChatPage from "./Pages/js/ChatPage";
         <Route path="/:eid/:ename/createsplit" exact element={<CreateSplit/>}/>
         <Route path="/event/:eid" exact element={<InsideEvent/>}/>
         <Route path="/:eid/post/:pid" exact element={<PostDetails/>}/>
-        <Route path="/:uid/chat/:rid" exact element={<ChatPage/>}/>
+        <Route path="/:sid/chat" exact element={<ChatPage/>}/>
         {/* { auth.user? null : <Navigate from="/home" to="/" /> } */}
        
         </Ways>

@@ -11,6 +11,7 @@ import "../css/InsideEvent.css";
 import Post from "../../Reusable/js/Post";
 import PostModal from "../../Components/Modals/js/PostModal";
 import ProfileDetailModal from "../../Components/Modals/js/ProfileDetailModal";
+import ChoosingpeopleModal from "../../Components/Modals/js/ChoosingpeopleModal";         
 import CommentModal from "../../Components/Modals/js/CommentModal";
 import { AuthContext } from "../../Context";
 import {
@@ -23,14 +24,17 @@ import {
 } from "firebase/firestore";
 import { database, db } from "../../Firebase";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 import { ref, push, set, onValue } from "firebase/database";
+
+
 function InsideEvent() {
   const [showLeftNav, setShowLeftNav] = useState(false);
   const [showPostModal, setPostModal] = useState(false);
   const [showCommentModal, setCommentModal] = useState(false);
+  const [showChooseModal,setChooseModal]=useState(true)
   const [showProfileDetail, setshowProfileDetail] = useState(false);
-  const [backdrop, setBackdrop] = useState(false);
+  const [backdrop, setBackdrop] = useState(true);
   const [splitid, setsplitid] = useState("");
   const [split, setSplit] = useState({
     name: "",
@@ -49,6 +53,7 @@ function InsideEvent() {
 
   const auth = useContext(AuthContext);
   const params = useParams();
+const location=useLocation()
 
   const onBackdropClick = () => {
     setPostModal(false);
@@ -59,10 +64,15 @@ function InsideEvent() {
   };
 
   const setModal = (data) => {
-    setBackdrop(data);
+    // setBackdrop(data);
     setPostModal(data);
     setCommentModal(data);
   };
+
+  const setModalTrue=(data)=>{
+    setChooseModal(true)
+  }
+
   const commenticonClick = (postId, postCreatorName) => {
     setCommentingOnPostId(postId);
     setPostCreatorName(postCreatorName);
@@ -140,10 +150,23 @@ function InsideEvent() {
     setBackdrop(true);
   };
 
+
+//********************ChoosePepoleModal**************************/
+
+
+
+
+
+
   return (
     <BreakpointProvider>
       <div className="insideeventpage__container">
         {backdrop && <Backdrop onClick={onBackdropClick}></Backdrop>}
+        <ChoosingpeopleModal
+          show={showChooseModal}
+          Choices={location.state.Choices}
+          eventId={params.eid}
+        ></ChoosingpeopleModal>
         <PostModal
           splitId={splitid}
           userId={auth.uid}
@@ -152,6 +175,7 @@ function InsideEvent() {
           eventId={params.eid}
           show={showPostModal}
           setModal={setModal}
+          setModalTrue={setModalTrue}
         ></PostModal>
         <CommentModal
           splitId={splitid}

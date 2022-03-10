@@ -1,6 +1,11 @@
 import React from 'react'
 import "../css/ConnectionCard.css"
+import { useNavigate, useParams } from "react-router-dom";
 function ConnectionCard(props) {
+const Navigate=useNavigate
+
+
+
     return (
         <div className='connection-card'>
             <div className='connection-card__info'>
@@ -11,7 +16,7 @@ function ConnectionCard(props) {
             </div>
       
             </div>
-            <button onClick={()=>{props.onRemoveClick(props.splitId)}}>Remove</button>
+            <button onClick={()=>{props.onRemoveClick(props.splitId,props.avatar,props.name,props.bio)}}>Remove</button>
             
         </div>
     )

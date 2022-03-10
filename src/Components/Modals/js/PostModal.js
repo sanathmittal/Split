@@ -92,6 +92,7 @@ function PostModal(props) {
             setpreview() 
             setshowpreview(false)
             props.setModal(false)
+            props.setModalTrue(true)
             return;
           } catch (error) {
             console.log(error)

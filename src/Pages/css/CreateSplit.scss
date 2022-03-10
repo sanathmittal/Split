@@ -9,6 +9,7 @@ html{
     // overflow-y: hidden;
     height: 100vh;
 }
+
 .createsplitpage{
    padding-top: 10rem;
    font-family: "Rubik", sans-serif;
@@ -101,10 +102,43 @@ html{
 .bio{
   margin-left: 2.4rem;
 }
+
+.createsplitpage__form-points {
+margin-left: 4.8rem;
+margin-top: 3.2rem;
+margin-bottom: 4rem;
+}
+.createsplitpage__form-points-heading{
+  font-size: 2.4rem;
+  margin-bottom: 0.4rem;
+}
+.createsplitpage__form-points-subheading{
+     font-size: 1.7rem;
+     color: grey;
+     max-width: 60rem;
+     margin-bottom: 1.6rem;
+}
+.createsplitpage__form-points-entry{
+  margin-bottom: 0.8rem;
+}
+.createsplitpage__form-points-entry>input{
+   height: 2.5rem;
+   width: 2.5rem;
+   border: 5px;
+
+   margin-right: 1.2rem;
+}
+.createsplitpage__form-points-entry>label{
+    font-size: 1.8rem;
+    // margin-bottom: 1.8rem;
+    // margin-top: -0.8rem;
+}
+
 .createsplitpage__form-checkbox{
   margin-left: 3.2rem;
     display: flex;
     gap: 5.2rem;
+   
 }
 .createsplitpage__form-checkbox>p{
   font-size: 1.8rem;

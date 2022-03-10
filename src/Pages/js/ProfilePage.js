@@ -82,7 +82,7 @@ useEffect(async () => {
   });
 
   setSplits(splits);
-
+console.log("sasa",auth.usersplits)
 }, [auth.uid]);
 
     return (

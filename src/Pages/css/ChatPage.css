@@ -5,12 +5,167 @@ html {
 .chatpage__container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 7fr 3fr;
-      grid-template-columns: 2fr 7fr 3fr;
+  -ms-grid-columns: 1fr 2fr;
+      grid-template-columns: 1fr 2fr;
+  overflow-y: hidden;
 }
 
-.chatpage {
-  padding-top: 10rem;
+.chatpage__topnav {
+  position: fixed;
+  left: 0;
+  right: 66.66%;
+  top: 0;
+  background: #fff;
+  padding: 1.6rem;
+  padding-left: 2.4rem;
+  border-bottom: 1px solid #b3b3b3;
+  border-right: 1px solid #b3b3b3;
+  background: #70ec70;
+  z-index: 4;
+}
+
+.chatpage__topnav-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.chatpage__topnav-top > img {
+  height: 4rem;
+  width: 4rem;
+}
+
+.chatpage__topnav-top-profileimg {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.chatpage__topnav-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.chatpage__topnav-split {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.9rem;
+  margin-left: 2.4rem;
+}
+
+.chatpage__topnav-split > p {
+  font-size: 2.4rem;
+  margin-top: 0.4rem;
+}
+
+.chatpage__topnav-split > img {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+}
+
+.chatpage__topnav-bottom-dropdownicon {
+  cursor: pointer;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 0.4rem;
+}
+
+.chatarea-topNav {
+  position: fixed;
+  left: 33.33%;
+  right: 0;
+  top: 0;
+  padding: 1.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.2rem;
+  background: #95f395;
+}
+
+.chatarea-topNav > img {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+}
+
+.chatarea-topNav > p {
+  font-size: 2.4rem;
+}
+
+.chatarea {
+  margin-top: 10rem;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 9.8rem;
+}
+
+.chatarea::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+.chatpage__splitdropdown {
+  position: absolute;
+  background: #f9f9f9;
+  border-radius: 10px;
+  margin-top: 4rem;
+  margin-left: 14rem;
+  border: 1px solid #d6d6d6;
+  z-index: 24;
+}
+
+.chatpage__splitdropdown-split {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.2rem;
+  padding: 1.2rem 2rem;
+}
+
+.chatpage__splitdropdown-split > img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.chatpage__splitdropdown-split > p {
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.chatpage__connections {
+  padding-left: 3.2rem;
+  padding-right: 3.2rem;
+  padding-top: 1.2rem;
+  height: 100vh;
+  background: #fafafa;
+  border-right: 1px solid #b3b3b3;
+  top: 13rem;
+  position: fixed;
+  left: 0;
+  right: 66.6%;
+  z-index: 1;
+  overflow-y: scroll;
+}
+
+.chatpage__connections::-webkit-scrollbar {
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+.chatpage-noconnectionmessage {
+  font-size: 2.2rem;
 }
 
 @media (max-width: 75em) {

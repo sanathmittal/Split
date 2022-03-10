@@ -2,10 +2,46 @@ html{
     font-size: 62.5%;
 }
 .message{
-    background: #d6d6d6;
-    padding: 0.4rem;
-    max-width: 25rem;
+    background: rgba(240, 238, 238, 0.933)
+    ;
+    padding: 0.6rem 1rem;
+    max-width: 35rem;
+    margin: 0.2rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1.8rem;
+  
+  //  display: flex;
+    gap: 1.2rem;
 }
-.message>p{
-  font-size: 1.8rem;
+.message-delete{
+ // position: absolute;
+  background-color: rgb(255, 255, 255);
+  font-size: 1.4rem;
+  padding: 0.6rem;
+  margin-top: 0.8rem;
+  border-radius: 1rem;
+  box-shadow: (2px 2px 4px rgb(143, 142, 142));
+  width: 11rem;
+}
+.display-none{
+  display: none;
+pointer-events: none;
+}
+.display-block{
+  display: block;
+}
+
+.message-sent{
+  display: flex;
+  
+  justify-content: right;
+}
+.message-sent>div{
+  background-color: #c9fcc9;
+    cursor: pointer;
+}
+.message-recived{
+  display: flex;
+  
+  justify-content: left;
 }

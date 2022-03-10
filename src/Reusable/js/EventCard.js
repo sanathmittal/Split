@@ -9,6 +9,7 @@ function EventCard(props) {
 //    const[buttonfunction,setbuttonfunction]=useState() 
 
    const Navigate=useNavigate()
+
     useEffect(()=>{
        
                 if(props.status === true){
@@ -30,10 +31,10 @@ const onDetailsClick=()=>{
 } 
 
 const onjoinClick=()=>{
-    Navigate(`/${props.eventId}/${props.heading}/createsplit`)
+    Navigate(`/${props.eventId}/${props.heading}/createsplit`,{state:{Choices:props.Choices}})
 }
 const onengageClick=()=>{
-    Navigate(`/event/${props.eventId}`)
+    Navigate(`/event/${props.eventId}`,{state:{Choices:props.Choices}})
 }
 
 

@@ -142,6 +142,7 @@ if (auth.uid === "" || !auth.uid){
                   key={event.eventId}
                   eventId={event.eventId}
                   participants={event.participantNo}
+                  Choices={event.Choices}
                 ></EventCard>
               ))}
               

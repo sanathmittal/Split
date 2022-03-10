@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import RightNav from "../../Components/js/RightNav";
 import LeftNav from "../../Components/js/LeftNav";
 import TopNav from "../../Components/js/TopNav";
@@ -8,86 +8,138 @@ import { Breakpoint, BreakpointProvider } from "react-socks";
 import girl5 from "../../assets/Dummyimages/Girl8.jpg";
 import downarrow from "../../assets/websiteimages/downarrow.svg";
 import Avatar from "@material-ui/core/Avatar";
-import AvatarDropdown from "../../Components/js/AvatarDropdown"
-import { useNavigate,useLocation, useParams, Navigate } from "react-router-dom";
-import { collection, addDoc ,doc, setDoc,arrayUnion,updateDoc,serverTimestamp} from "firebase/firestore"; 
+import AvatarDropdown from "../../Components/js/AvatarDropdown";
+import {
+  useNavigate,
+  useLocation,
+  useParams,
+  Navigate,
+} from "react-router-dom";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  arrayUnion,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { AuthContext } from "../../Context";
-import {db} from "../../Firebase"
+import { db } from "../../Firebase";
 import "../css/CreateSplit.css";
 
 function CreateSplit(props) {
+  const Location = useLocation();
   const [showLeftNav, setShowLeftNav] = useState(false);
   const [showAvatarDropdown, setShowAvatarDropdown] = useState(false);
-  const [avatar,setavatar]=useState('')
-  const [name,setName]=useState('')
-  const [bio,setBio]=useState('')
-  const [checked,setChecked]=useState(false)
-  const [error,setError]=useState()
-const auth=useContext(AuthContext)
+  const [avatar, setavatar] = useState("");
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [checked, setChecked] = useState(false);
+  const [error, setError] = useState();
+  const [checkedState, setCheckedState] = useState(
+    new Array(Location.state.Choices.length).fill(false)
+  );
+  const [choices, setChoices] = useState([]);
+  // useEffect(() => {
+  //   console.log(checkedState);
+  //   //.log(choices)
+  // }, [checkedState]);
+  const handleOnChange = (position) => {
+   
+
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setCheckedState(updatedCheckedState);
+    const choicesArray=[]
+    updatedCheckedState.forEach((choice ,index)=>{
+      if(choice ===true){
+      choicesArray.push(Location.state.Choices[index])
+      }
+    })
+   setChoices(choicesArray)
+ // console.log(choicesArray)
+  }
+
+  const auth = useContext(AuthContext);
 
   const eventId = useParams();
-  const Navigate=useNavigate()
+  const Navigate = useNavigate();
 
 
   const passavatar = (data) => {
     setavatar(data);
   };
+// const nochoices=()=>{
+//   console.log(choices)
+//    if (choices.length !== 3){
+//      console.log("error")
+//    }
+//   //  else{
+//   //    console.log("error")
+//   //  }
+// }
+  const onFormSubmit = async (e) => {
 
-const onFormSubmit= async (e)=>{
-  e.preventDefault()
- if(name.length ===0 ){
-   setError("name can not be empty")
-   return;
- }
- if(bio.length < 12){
-   setError('Bio is too short')
-   return;
- }
- if(!checked){
-   setError('you must agree to user guidelines')
-   return;
-}
-  try {
-  const  docRef=   await addDoc(collection(db, "Events",eventId.eid,"Participants" ), {
-      name: name,
-      bio:bio,
-      user:auth.uid,
-      avatar:avatar,
-      JoinedOn:new Date(),
-    });
-   
+    e.preventDefault();
 
-    await setDoc(doc(db, "users", auth.uid,"Splits",docRef.id), {
-      name: name,
-      bio:bio,
-      event:eventId.eid,
-      eventName:eventId.ename,
-      avatar:avatar,
-      CreatedOn:new Date(),
-    });
-    const washingtonRef = doc(db, "users", auth.uid);
+    if (name.length === 0) {
+      setError("name can not be empty");
+      return;
+    }
+    if (bio.length < 12) {
+      setError("Bio is too short");
+      return;
+    }
+    if (choices.length !== 3){
+          setError("you must have 3 choices")
+          return;
+         }
+    if (!checked) {
+      setError("you must agree to user guidelines");
+      return;
+    }
+    try {
+      const docRef = await addDoc(
+        collection(db, "Events", eventId.eid, "Participants"),
+        {
+          name: name,
+          bio: bio,
+          user: auth.uid,
+          avatar: avatar,
+          JoinedOn: new Date(),
+          choices: choices,
+        }
+      );
 
-    await updateDoc(washingtonRef, {
-        Events: arrayUnion(eventId.eid)
-    });
-    console.log("Document written with ID: ", docRef.id);
- 
-  }
-   
-   catch (error) {
-     setError("error while creating Split") 
-  
-   }
- 
+      await setDoc(doc(db, "users", auth.uid, "Splits", docRef.id), {
+        name: name,
+        bio: bio,
+        event: eventId.eid,
+        eventName: eventId.ename,
+        avatar: avatar,
+        CreatedOn: new Date(),
+        connections: [],
+        choices: choices,
+      });
+      const washingtonRef = doc(db, "users", auth.uid);
 
-   setName('')
-    setBio('')
-    setChecked()
-    setavatar('')
-    Navigate(`/event/${eventId.eid}`)
-  
-}
+      await updateDoc(washingtonRef, {
+        Events: arrayUnion(eventId.eid),
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      setError("error while creating Split");
+    }
 
+    setName("");
+    setBio("");
+    setChecked();
+    setavatar("");
+    Navigate(`/event/${eventId.eid}`);
+  };
 
   return (
     <BreakpointProvider>
@@ -110,29 +162,48 @@ const onFormSubmit= async (e)=>{
               setShowLeftNav(true);
             }}
           ></TopNav>
+
           <p className="createsplitpage__heading">Create a Split</p>
           <form className="createsplitpage__form">
             <div className="createsplitpage__form-avatar">
               {/* <img src={girl5}></img> */}
               <Avatar
-        style={{  margin:-7,height:70 ,width:70 }}
-        alt="GeeksforGeeks Pic 1"
-        src={avatar}
-
-      />
+                style={{ margin: -7, height: 70, width: 70 }}
+                alt="GeeksforGeeks Pic 1"
+                src={avatar}
+              />
               <div className="createsplitpage__form-avatardropdown">
-           
-                <img onClick={()=>{setShowAvatarDropdown(prev=>!prev)}} src={downarrow}></img>
+                <img
+                  onClick={() => {
+                    setShowAvatarDropdown((prev) => !prev);
+                  }}
+                  src={downarrow}
+                ></img>
 
-                {showAvatarDropdown &&  <AvatarDropdown eventId={eventId.eid} passavatar={passavatar} ></AvatarDropdown>}
-               
+                {showAvatarDropdown && (
+                  <AvatarDropdown
+                    eventId={eventId.eid}
+                    passavatar={passavatar}
+                  ></AvatarDropdown>
+                )}
+
                 <p>Select a avatar</p>
               </div>
             </div>
             <div className="createsplitpage__form-entry">
               <p>Name:</p>
               <div className="createsplitpage__form-entry-input">
-                <input onFocus={()=>{setError(null)}}  value={name} onChange={(e)=>{setName(e.target.value)}} placeholder="Name" type="text"></input>
+                <input
+                  onFocus={() => {
+                    setError(null);
+                  }}
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  placeholder="Name"
+                  type="text"
+                ></input>
                 <p>
                   your split willl be known by this name and you will interact
                   in this event using this name only ,select a name which suits
@@ -143,7 +214,17 @@ const onFormSubmit= async (e)=>{
             <div className="createsplitpage__form-entry bio">
               <p>Bio:</p>
               <div className="createsplitpage__form-entry-input">
-                <textarea  onFocus={()=>{setError(null)}}  value={bio} onChange={(e)=>{setBio(e.target.value)}} placeholder="Bio" type="text"></textarea>
+                <textarea
+                  onFocus={() => {
+                    setError(null);
+                  }}
+                  value={bio}
+                  onChange={(e) => {
+                    setBio(e.target.value);
+                  }}
+                  placeholder="Bio"
+                  type="text"
+                ></textarea>
                 <p>
                   Describe your split here ,you can highlight your achivements
                   regarding the topic of this event . provide information about
@@ -152,8 +233,42 @@ const onFormSubmit= async (e)=>{
                 </p>
               </div>
             </div>
+            <div className="createsplitpage__form-points ">
+              <p className="createsplitpage__form-points-heading">
+                choose any 3 choices from below
+              </p>
+              <p className="createsplitpage__form-points-subheading">
+                this is very important step as the choices you make will affect
+                the posts you see inside the event.choose what you really feel
+                describes you.
+              </p>
+
+              {Location.state.Choices.map((choice, index) => (
+                <div key={index} className="createsplitpage__form-points-entry">
+                  <input
+                    type="checkbox"
+                    value={choice}
+                    name={choice}
+                    id={index}
+                    checked={checkedState[index]}
+                    onChange={() => handleOnChange(index)}
+                  ></input>
+                  <label>{choice}</label>
+                </div>
+              ))}
+            
+            </div>
             <div className="createsplitpage__form-checkbox">
-              <input  onFocus={()=>{setError(null)}}  type="checkbox" value={checked} onClick={(e)=>{setChecked(e.target.checked)}}></input>
+              <input
+                onFocus={() => {
+                  setError(null);
+                }}
+                type="checkbox"
+                value={checked}
+                onClick={(e) => {
+                  setChecked(e.target.checked);
+                }}
+              ></input>
               <p>
                 I have read the event’s user guidelines and i agree with all of
                 them. i further give my consent for action against my account if

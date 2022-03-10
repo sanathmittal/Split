@@ -3,13 +3,12 @@ html {
   font-size: 62.5%;
 }
 
-.split-card {
+.chat-card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 1.6rem;
   background: #f6f6f6;
-  border: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 1.6rem;
   padding-bottom: 1.6rem;
   padding-left: 2.4rem;
@@ -21,26 +20,35 @@ html {
   cursor: pointer;
 }
 
-.split-avatar {
+.unselected {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.selected {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+  border: 2px solid #70ec70;
+  z-index: 0;
+}
+
+.chat-card:hover {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+  z-index: 0;
+}
+
+.chatcard-avatar {
   height: 6rem;
   width: 6rem;
   border-radius: 50%;
 }
 
-.split-info {
+.chatcard-info {
   margin-top: 0.6rem;
 }
 
-.split-name {
+.chatcard-name {
   font-size: 2rem;
-  margin-bottom: 0.8rem;
+  margin-top: 1.2rem;
 }
-
-.split-event {
-  font-size: 1.6rem;
-}
-
-.split-event > span {
-  color: #6f6f6f;
-}
-/*# sourceMappingURL=SplitCard.css.map */
+/*# sourceMappingURL=ChatCard.css.map */

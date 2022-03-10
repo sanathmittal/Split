@@ -1,0 +1,27 @@
+html{
+    font-size: 62.5%;
+}
+.chatform-input{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 33.3%;
+    padding: 1.4rem;
+    padding-left: 6.4rem;
+    display: flex;
+    gap: 2.4rem;
+    background: rgb(233, 233, 233);
+}
+.chatform-input>img{
+    height: 4rem;
+    width: 4rem;
+}
+.chatform-input>input{
+    height:3rem;
+    width: 65rem;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid grey;
+    padding-left: 1rem;
+    margin-top: 0.3rem;
+}

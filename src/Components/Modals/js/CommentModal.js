@@ -1,9 +1,9 @@
-import React,{useState, useStates,useEffect,useContext} from 'react'
-import "../css/CommentModal.css"
+import React, { useState, useStates, useEffect, useContext } from "react";
+import "../css/CommentModal.css";
 import mediaicon from "../../../assets/websiteimages/mediaicon.svg";
 import { CSSTransition } from "react-transition-group";
 import PostImagePreview from "../../js/PostImagePreview";
-import { ref, push, set , onValue } from "firebase/database";
+import { ref, push, set, onValue } from "firebase/database";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import {
@@ -17,7 +17,7 @@ import { AuthContext } from "../../../Context";
 import { v4 as uuidv4 } from "uuid";
 
 function CommentModal(props) {
-    const [text, settext] = useState("");
+  const [text, settext] = useState("");
   //const [textHeight, settextHeight] = useState("auto");
   const [image, setimage] = useState("");
   const [preview, setpreview] = useState("");
@@ -26,11 +26,9 @@ function CommentModal(props) {
   const [postId, setPostId] = useState();
   const [date, setDate] = useState("");
 
-
   const auth = useContext(AuthContext);
   const htmlId = uuidv4();
   useEffect(() => {
-   
     if (image === "") {
       return;
     }
@@ -42,9 +40,6 @@ function CommentModal(props) {
     filereader.readAsDataURL(image);
     setshowpreview(true);
   }, [image]);
-
- 
-
 
   const passcancel = (data) => {
     setshowpreview(data);
@@ -66,38 +61,39 @@ function CommentModal(props) {
 
     if (text === "" && image === "") {
       seterror(" cant create a  empty  Comment");
-      console.log("error,empty commentost")
+      console.log("error,empty commentost");
       return;
     }
-    if(text.length> 0 && image === ""){
-         console.log("ruunig without image")
-          try {
-            set(ref(database, "Comments/" + `${props.eventId}/` + `${props.postId}/` +htmlId), {
-              text: text,
-              image: '',
-              creator: props.splitId,
-              creatorName: props.splitName,
-              creatorAvatar: props.splitAvatar,
-              createdAt: date,
-              PostId:htmlId
-            });
-
-            setimage('')
-            settext("")
-            setpreview() 
-            setshowpreview(false)
-            props.setModal(false)
-            return;
-          } catch (error) {
-            console.log(error)
+    if (text.length > 0 && image === "") {
+      console.log("ruunig without image");
+      try {
+        set(
+          ref(
+            database,
+            "Comments/" + `${props.eventId}/` + `${props.postId}/` + htmlId
+          ),
+          {
+            text: text,
+            image: "",
+            creator: props.splitId,
+            creatorName: props.splitName,
+            creatorAvatar: props.splitAvatar,
+            createdAt: date,
+            PostId: htmlId,
           }
+        );
 
-  
-
-
+        setimage("");
+        settext("");
+        setpreview();
+        setshowpreview(false);
+        props.setModal(false);
+        return;
+      } catch (error) {
+        console.log(error);
+      }
     }
 
-   
     const storageRef = Storageref(
       storage,
       `CommentImages/${props.eventId}/${htmlId}`
@@ -138,22 +134,27 @@ function CommentModal(props) {
           try {
             // Create a new post reference with an auto-generated id
 
-            set(ref(database, "Comments/" + `${props.eventId}/` + `${props.postId}/` +htmlId), {
-              text: text,
-              image: url,
-              creator: props.splitId,
-              creatorName: props.splitName,
-              creatorAvatar: props.splitAvatar,
-              createdAt: date,
-              PostId:htmlId
-            });
+            set(
+              ref(
+                database,
+                "Comments/" + `${props.eventId}/` + `${props.postId}/` + htmlId
+              ),
+              {
+                text: text,
+                image: url,
+                creator: props.splitId,
+                creatorName: props.splitName,
+                creatorAvatar: props.splitAvatar,
+                createdAt: date,
+                PostId: htmlId,
+              }
+            );
 
-            setimage('')
-            settext("")
-            setpreview()
-            setshowpreview(false)
-            props.setModal(false)
-
+            setimage("");
+            settext("");
+            setpreview();
+            setshowpreview(false);
+            props.setModal(false);
           } catch (error) {
             console.log(error);
             seterror(error);
@@ -162,9 +163,9 @@ function CommentModal(props) {
       }
     );
   };
-    
-    return (
-        <CSSTransition
+
+  return (
+    <CSSTransition
       in={props.show}
       timeout={100}
       classNames="slide-in-left"
@@ -172,7 +173,7 @@ function CommentModal(props) {
       unmountOnExit
     >
       <div className="commentmodal">
-          <p>Commenting on {props.postCreatorName}</p>
+        <p>Commenting on {props.postCreatorName}</p>
         <div className="commentmodal-text">
           <img src={props.splitAvatar}></img>
           <div className="commentmodal-text-content">
@@ -204,13 +205,16 @@ function CommentModal(props) {
             type="file"
             id="comment-media"
           ></input>
-          <button onClick={onCommentClick}
-        //    onClick={onPostClick}
-          >Comment</button>
+          <button
+            onClick={onCommentClick}
+            //    onClick={onPostClick}
+          >
+            Comment
+          </button>
         </div>
       </div>
     </CSSTransition>
-    )
+  );
 }
 
-export default CommentModal
+export default CommentModal;

@@ -28,7 +28,12 @@ function SpltPage() {
     useState(false);
     const [removeConfirmationModal, setRemoveConfirmationModal] =
     useState(false);
-    const[deleteConnectionId,setDeleteConnectionId]=useState("")
+    const[deleteConnectionId,setDeleteConnectionId]=useState({
+      id:"",
+      avatar:"",
+      name:"",
+      bio:""
+    })
   const [split, setSplit] = useState({
     name: "",
     bio: "",
@@ -66,36 +71,36 @@ function SpltPage() {
     }
   }, [splitId.sid, auth.uid,split.connections]);
  
-  useEffect(async () => {
-    if (split.eventId === "") {
+  // useEffect(async () => {
+  //   if (split.eventId === "") {
   
     
-      return;
-    }
-    let matches = [];
+  //     return;
+  //   }
+  //   let matches = [];
    
-    split.connections.forEach(async (connection) => {
-      const docRef = doc(
-        db,
-        "Events",
-        split.eventId,
-        "Participants",
-        connection
-      );
-      const docSnap = await getDoc(docRef);
-      matches.push({...docSnap.data(),splitId:docSnap.id});
-    });
+  //   split.connections.forEach(async (connection) => {
+  //     const docRef = doc(
+  //       db,
+  //       "Events",
+  //       split.eventId,
+  //       "Participants",
+  //       connection.id
+  //     );
+  //     const docSnap = await getDoc(docRef);
+  //     matches.push({...docSnap.data(),splitId:docSnap.id});
+  //   });
    
-    setConnections(matches);
+  //   setConnections(matches);
    
 
-    // if (docSnap.exists()) {
-    //   console.log("Document data:", docSnap.data());
-    // } else {
-    //   // doc.data() will be undefined in this case
-    //   console.log("No such document!");
-    // }
-  }, [split.eventId]);
+  //   // if (docSnap.exists()) {
+  //   //   console.log("Document data:", docSnap.data());
+  //   // } else {
+  //   //   // doc.data() will be undefined in this case
+  //   //   console.log("No such document!");
+  //   // }
+  // }, [split.eventId]);
 
   const onYesClick = async () => {
     try {
@@ -115,8 +120,13 @@ function SpltPage() {
     //    setbackdrop(false)
     //    setSplitDeleteConfirmationModal(false)
   };
-const onRemoveClick=  (data)=>{
-  setDeleteConnectionId(data)
+const onRemoveClick=  (id,avatar,name,bio)=>{
+  setDeleteConnectionId({
+    id:id,
+    avatar:avatar,
+    name:name,
+    bio:bio
+  })
   setbackdrop(true)
   setRemoveConfirmationModal(true)
 }
@@ -207,14 +217,16 @@ const onRemoveYesClick= async ()=>{
             connectionDate="07/01/2022"
           ></ConnectionCard> */}
 
-          {connections.map(connectio => (
+          {split.connections.map(connectio => (
             <ConnectionCard
               avatar={connectio.avatar}
               name={connectio.name}
               connectionDate="11/02/2022"
-              key={connectio.user}
-              splitId={connectio.splitId}
+              bio={connectio.bio}
+              key={connectio.id}
+              splitId={connectio.id}
               onRemoveClick={onRemoveClick}
+              
             ></ConnectionCard>
           ))}
           

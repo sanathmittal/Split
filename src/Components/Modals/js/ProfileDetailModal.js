@@ -1,7 +1,7 @@
 import React,{useState,useContext,useEffect} from "react";
 import "../css/ProfileDetailModal.css"
 import { CSSTransition } from "react-transition-group";
-import { doc,  onSnapshot,updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc,  onSnapshot,updateDoc, arrayUnion, arrayRemove, addDoc, setDoc } from "firebase/firestore";
 import {db} from "../../../Firebase"
 import { AuthContext } from "../../../Context";
 
@@ -12,14 +12,18 @@ const [buttonStyle,setbuttonStyle]=useState("")
     const auth=useContext(AuthContext)
 
 useEffect(()=>{
-   
+   let connectionsIds=[]
 if(props.splitId){
   const unsub = onSnapshot(doc(db, "users",auth.uid,"Splits", props.splitId), (doc) => {
     // console.log("Current data: ", doc.data().connections);
 
     if(doc.data().connections){
-      setConnections(doc.data().connections)
+      // setConnections(doc.data().connections)
+      doc.data().connections.forEach(element => {
+          connectionsIds.push(element.id)
+      });
     }
+  setConnections(connectionsIds)
 
  
 });
@@ -83,8 +87,20 @@ const onConnectClick= async ()=>{
 
     
     await updateDoc(washingtonRef, {
-        connections: arrayUnion(props.viewSplitId)
+        connections: arrayUnion({
+          avatar:props.avatar,
+          name:props.name,
+          bio:props.bio,
+          id:props.viewSplitId
+        })
     });
+    // await setDoc(doc(db,"users",auth.uid,"Splits",props.splitId,"Connections",props.viewSplitId),{
+    //   avatar:props.avatar,
+    //   name:props.name,
+    //   bio:props.bio,
+    //  name:"shsshsj",
+    //   id:props.viewSplitId
+    // })
     setConnectionStatus(true)
 }
 
