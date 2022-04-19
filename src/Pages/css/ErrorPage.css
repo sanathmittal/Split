@@ -1,0 +1,56 @@
+html {
+  font-size: 62.5%;
+}
+
+.errorpage__container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 7fr 3fr;
+      grid-template-columns: 2fr 7fr 3fr;
+}
+
+.error-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-left: 1px solid #afafaf;
+  border-right: 1px solid #afafaf;
+  font-family: "Rubik", sans-serif;
+  font-weight: 350;
+  height: 100vh;
+}
+
+.error-page__content-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.error-page__content-img > img {
+  margin-top: 8rem;
+  height: 60%;
+  width: 60%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.error-page__heading {
+  font-size: 4rem;
+  text-align: center;
+  margin-top: 2.4rem;
+  color: #FF1203;
+}
+
+.error-page__subheading {
+  font-size: 2.8rem;
+  text-align: center;
+  margin-top: 2.4rem;
+}
+/*# sourceMappingURL=ErrorPage.css.map */

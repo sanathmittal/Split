@@ -15,15 +15,28 @@ import {
   Timestamp,
   deleteDoc,
   updateDoc,
+  arrayUnion,
   arrayRemove,
+  onSnapshot
 } from "firebase/firestore";
 import { db } from "../../Firebase";
 import { AuthContext } from "../../Context";
 
 import Backdrop from "../../Reusable/js/Backdrop";
 import SplitDeleteConfirmationModal from "../../Components/Modals/js/SplitDeleteConfirmationModal";
+import LeftNavMobile from "../../Components/js/LeftNavMobile";
+import TopNav from "../../Components/js/TopNav";
+import Loading from "../../Reusable/js/Loading";
+import ConnectionRequestCard from "../../Reusable/js/ConnectionRequestCard";
+import WhiteBackDrop from "../../Reusable/js/WhiteBackDrop";
 function SpltPage() {
+
+const[isLoading1,setISLoading1]=useState(false) 
+const [processLoading,setProcessLoading]=useState(false)
+const [showConnections,setShowConnections]=useState(false)
+ 
   const [showBackdrop, setbackdrop] = useState(false);
+  const[showLeftNav,setShowLeftNav]=useState(false)
   const [splitDeleteConfirmationModal, setSplitDeleteConfirmationModal] =
     useState(false);
     const [removeConfirmationModal, setRemoveConfirmationModal] =
@@ -41,6 +54,7 @@ function SpltPage() {
     event: "",
     eventId: "",
     connections: [],
+    connectionRequests:[],
     connectionsNo: "",
   });
   const [connections, setConnections] = useState([
@@ -50,57 +64,38 @@ function SpltPage() {
 
   const splitId = useParams();
   const Navigate = useNavigate();
+
+
   useEffect(async () => {
-    //  console.log('sbsh',eventId.eid)
+     // console.log('sbsh')
+     
+// const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
+//     console.log("Current data: ", doc.data());
+// });
+    setISLoading1(true)
     const docRef = doc(db, "users", auth.uid, "Splits", splitId.sid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      setSplit({
-        name: docSnap.data().name,
-        bio: docSnap.data().bio,
-        avatar: docSnap.data().avatar,
-        event: docSnap.data().eventName,
-        eventId: docSnap.data().event,
-        connections: docSnap.data().connections,
-        connectionsNo: docSnap.data().connections.length,
-      });
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  }, [splitId.sid, auth.uid,split.connections]);
- 
-  // useEffect(async () => {
-  //   if (split.eventId === "") {
+   // const docSnap = await getDoc(docRef);
+   const unsub = onSnapshot(docRef, (docSnap) => {
+    setSplit({
+      name: docSnap.data().name,
+      bio: docSnap.data().bio,
+      avatar: docSnap.data().avatar,
+      event: docSnap.data().eventName,
+      eventId: docSnap.data().event,
+      connections: docSnap.data().connections,
+      connectionRequests:docSnap.data().connectionRequests,
+      connectionsNo: docSnap.data().connections.length,
+    });
   
-    
-  //     return;
-  //   }
-  //   let matches = [];
+});
+    setISLoading1(false)
+  
    
-  //   split.connections.forEach(async (connection) => {
-  //     const docRef = doc(
-  //       db,
-  //       "Events",
-  //       split.eventId,
-  //       "Participants",
-  //       connection.id
-  //     );
-  //     const docSnap = await getDoc(docRef);
-  //     matches.push({...docSnap.data(),splitId:docSnap.id});
-  //   });
-   
-  //   setConnections(matches);
-   
-
-  //   // if (docSnap.exists()) {
-  //   //   console.log("Document data:", docSnap.data());
-  //   // } else {
-  //   //   // doc.data() will be undefined in this case
-  //   //   console.log("No such document!");
-  //   // }
-  // }, [split.eventId]);
+  
+  
+  }, [splitId.sid, auth.uid]);
+ 
+ 
 
   const onYesClick = async () => {
     try {
@@ -120,12 +115,13 @@ function SpltPage() {
     //    setbackdrop(false)
     //    setSplitDeleteConfirmationModal(false)
   };
-const onRemoveClick=  (id,avatar,name,bio)=>{
+const onRemoveClick=  (id,avatar,name,bio,uid)=>{
   setDeleteConnectionId({
-    id:id,
+    splitId:id,
     avatar:avatar,
     name:name,
-    bio:bio
+    bio:bio,
+    userId:uid
   })
   setbackdrop(true)
   setRemoveConfirmationModal(true)
@@ -135,20 +131,89 @@ const onRemoveYesClick= async ()=>{
   await updateDoc(doc(db, "users", auth.uid,"Splits",splitId.sid), {
     connections: arrayRemove(deleteConnectionId),
   });
+  await updateDoc(doc(db, "users", deleteConnectionId.userId,"Splits",deleteConnectionId.splitId), {
+    connections: arrayRemove({
+      splitId:splitId.sid,
+    avatar:split.avatar,
+    name:split.name,
+    bio:split.bio,
+    userId:auth.uid
+    }),
+  });
   setbackdrop(false)
   setRemoveConfirmationModal(false)
 }
 
+const onAcceptClick=async (id,name,avatar,bio,uid)=>{
+     
+  setProcessLoading(true)
+
+  const washingtonRef = doc(db, "users",auth.uid,"Splits", splitId.sid);
+
+    
+    await updateDoc(washingtonRef, {
+        connections: arrayUnion({
+          avatar:avatar,
+          name:name,
+          bio:bio,
+          splitId:id,
+          userId:uid,
+        })
+    });
+
+    await updateDoc(washingtonRef, {
+      connectionRequests: arrayRemove({
+        avatar:avatar,
+        name:name,
+        bio:bio,
+        splitId:id,
+        userId:uid
+      })
+  });
+
+
+  const oppositeRef = doc(db, "users",uid , "Splits", id);
+
+    
+  await updateDoc(oppositeRef, {
+      connections: arrayUnion({
+        avatar:split.avatar,
+        name:split.name,
+        bio:split.bio,
+        splitId:splitId.sid,
+        userId:auth.uid
+      })
+  });
+  setProcessLoading(false)
+}
+
+const onRejectClick=async (id,name,avatar,bio,uid)=>{
+  setProcessLoading(true)
+
+  const washingtonRef = doc(db, "users",auth.uid,"Splits", splitId.sid);
+  await updateDoc(washingtonRef, {
+    connectionRequests: arrayRemove({
+      avatar:avatar,
+      name:name,
+      bio:bio,
+      splitId:id,
+      userId:uid
+    })
+});
+setProcessLoading(false)
+}
 
 
   return (
     <div className="split__pagecontainer">
       <LeftNav></LeftNav>
       <div className="split-page">
-        <div className="split-page__topnav">
+        {/* <div className="split-page__topnav">
           <img src={arrowleft}></img>
           <p>Dreamgirl 69</p>
-        </div>
+        </div> */}
+           
+           <LeftNavMobile show={showLeftNav} className="homepage-leftnav"></LeftNavMobile> 
         {showBackdrop && (
           <Backdrop
             onClick={() => {
@@ -158,7 +223,8 @@ const onRemoveYesClick= async ()=>{
             }}
           ></Backdrop>
         )}
-
+        {processLoading && <WhiteBackDrop></WhiteBackDrop>  }
+         {processLoading && <Loading></Loading>}
         <SplitDeleteConfirmationModal
           show={splitDeleteConfirmationModal}
           onNoClick={() => {
@@ -176,8 +242,10 @@ const onRemoveYesClick= async ()=>{
           onYesClick={onRemoveYesClick}
         ></RemoveConfirmationModal>
         <div className="split-page__profilecarrier">
+        <TopNav heading={`Split: ${split.name}`} onMenuClick={()=>{setShowLeftNav(true)}}></TopNav>
           <div className="split-page__profile">
             <div className="split-page__profile-info">
+              
               <div className="split-page__profile-info-left">
                 <img src={split.avatar}></img>
               </div>
@@ -209,27 +277,46 @@ const onRemoveYesClick= async ()=>{
           </div>
         </div>
         <img src={line}></img>
-        <p>Connections</p>
+        <div className="split-page__profile-bottom">
+        <p onClick={()=>{setShowConnections(true)}}>Connections</p>
+        <p onClick={()=>{setShowConnections(false)}}>Requests</p>
+        </div>
+      
         <div className="split-page__connection-cards">
           {/* <ConnectionCard
             avatar={girl2}
             name="Ruchit63"
             connectionDate="07/01/2022"
           ></ConnectionCard> */}
-
-          {split.connections.map(connectio => (
+             
+          { showConnections &&  split.connections.map(connectio => (
             <ConnectionCard
               avatar={connectio.avatar}
               name={connectio.name}
               connectionDate="11/02/2022"
               bio={connectio.bio}
-              key={connectio.id}
-              splitId={connectio.id}
+              key={connectio.splitId}
+              splitId={connectio.splitId}
+              userId={connectio.userId}
               onRemoveClick={onRemoveClick}
               
             ></ConnectionCard>
           ))}
-          
+
+{!showConnections &&  split.connectionRequests.map(connectio => (
+            <ConnectionRequestCard
+              avatar={connectio.avatar}
+              name={connectio.name}
+            //  connectionDate="11/02/2022"
+              bio={connectio.bio}
+              key={connectio.splitId}
+              splitId={connectio.splitId}
+              userId={connectio.userId}
+              onAcceptClick={onAcceptClick}
+              onRejectClick={onRejectClick}
+            ></ConnectionRequestCard>
+          ))}
+              {isLoading1 && <Loading></Loading> }
         </div>
       </div>
       <RightNav></RightNav>

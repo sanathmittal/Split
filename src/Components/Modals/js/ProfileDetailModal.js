@@ -83,25 +83,30 @@ if(connectionStatus ===false){
 
 
 const onConnectClick= async ()=>{
-    const washingtonRef = doc(db, "users",auth.uid,"Splits", props.splitId);
+    const washingtonRef = doc(db, "users",props.userId,"Splits", props.viewSplitId);
 
     
+    // await updateDoc(washingtonRef, {
+    //     connections: arrayUnion({
+    //       avatar:props.avatar,
+    //       name:props.name,
+    //       bio:props.bio,
+    //       id:props.viewSplitId
+    //     })
+    // });
+    
+    
     await updateDoc(washingtonRef, {
-        connections: arrayUnion({
-          avatar:props.avatar,
-          name:props.name,
-          bio:props.bio,
-          id:props.viewSplitId
-        })
-    });
-    // await setDoc(doc(db,"users",auth.uid,"Splits",props.splitId,"Connections",props.viewSplitId),{
-    //   avatar:props.avatar,
-    //   name:props.name,
-    //   bio:props.bio,
-    //  name:"shsshsj",
-    //   id:props.viewSplitId
-    // })
-    setConnectionStatus(true)
+      connectionRequests: arrayUnion({
+        avatar:props.selfUser.avatar,
+        name:props.selfUser.name,
+        bio:props.selfUser.bio,
+        splitId:props.selfUser.id,
+        userId:auth.uid
+      })
+  });
+  
+    // setConnectionStatus(true)
 }
 
   return (
@@ -119,13 +124,16 @@ const onConnectClick= async ()=>{
           <p>
             Connections: <span>{props.connections}</span>
           </p>
-          <button className={buttonStyle} type="button" onClick={connectionStatus?()=>{}:onConnectClick}>{connectionStatus ?"Connected" :"Connect"}</button>
+          <button className={buttonStyle} type="button" onClick={onConnectClick}>{connectionStatus ?"Connected" :"Connect"}</button>
         </div>
         <div className="profiledetailmodal-bottomtext">
           <p className="profiledetailmodal-bottomtext-name">{props.name}</p>
           <p className="profiledetailmodal-bottomtext-bio">  {props.bio} </p>
               
         </div>
+        <ul className="profiledetailmodal__choices">
+                {props.Choices.map((choice)=><li key={choice}>{choice}</li>)}
+        </ul>
       </div>
       
     </CSSTransition>

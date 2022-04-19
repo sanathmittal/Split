@@ -118,8 +118,14 @@ gap: 3.2rem;
   margin: 6.4rem auto 1.6rem;
   display: block;
 }
-.split-page>p{
+.split-page__profile-bottom{
+  display: flex;
   text-align: center;
+  justify-content: center;
+  gap: 4rem;
+}
+.split-page__profile-bottom>p{
+cursor: pointer;
   font-size: 1.8rem;
 
 }

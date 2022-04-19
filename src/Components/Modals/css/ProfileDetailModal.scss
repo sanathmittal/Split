@@ -72,7 +72,17 @@ html{
 }
 .profiledetailmodal-bottomtext-bio{
     margin-top:0.4rem ;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   max-width: 55rem;
     color: grey;
+}
+.profiledetailmodal__choices{
+    margin-top: 1.6rem;
+    margin-left: -1.4rem;
+}
+.profiledetailmodal__choices>li{
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+    color: rgb(88, 88, 88);
+    font-weight: 500;
 }

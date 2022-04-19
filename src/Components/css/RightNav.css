@@ -28,6 +28,24 @@ html {
   cursor: pointer;
 }
 
+.profile > p:hover {
+  text-decoration: underline;
+}
+
+.rightnav > button {
+  font-size: 2.4rem;
+  width: 18rem;
+  height: 4rem;
+  border: none;
+  border-radius: 1rem;
+  color: #ffff;
+  background-color: #434ffa;
+  -webkit-box-shadow: 3px 3px 4px #484f68;
+          box-shadow: 3px 3px 4px #484f68;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
 .notifications > p {
   font-size: 3.2rem;
   margin-bottom: 2.4rem;

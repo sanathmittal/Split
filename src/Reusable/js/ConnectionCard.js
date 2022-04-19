@@ -16,7 +16,7 @@ const Navigate=useNavigate
             </div>
       
             </div>
-            <button onClick={()=>{props.onRemoveClick(props.splitId,props.avatar,props.name,props.bio)}}>Remove</button>
+            <button onClick={()=>{props.onRemoveClick(props.splitId,props.avatar,props.name,props.bio,props.userId)}}>Remove</button>
             
         </div>
     )

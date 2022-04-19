@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import "../css/Post.css"
 import like from "../../assets/websiteimages/like.svg"
 import comment from "../../assets/websiteimages/comment.svg"
-import {  ref, runTransaction } from "firebase/database";
+import {  ref, runTransaction, set ,} from "firebase/database";
 import {database} from "../../Firebase"
 import { useNavigate} from 'react-router-dom';
 
@@ -21,12 +21,15 @@ useEffect(()=>{
   }else{
     setDisplay("block")
   }
-},[])
+
+},[props.media])
 
 
 const onPostClick=()=>{
   Navigate(`/${props.eventId}/post/${props.postId}`,{state:{userSplitId:props.userSplitId,userAvatar:props.userAvatar,userSplitName:props.userSplitName}})
 }
+
+
 
 function toggleStar () {
 
@@ -34,22 +37,26 @@ function toggleStar () {
 
   runTransaction(postRef, (post) => {
     if (post) {
-      if (post.stars && post.stars[props.splitId]) {
+      
+      if (post.stars && post.stars[props.userSplitId] && post.starCount) {
         post.starCount--;
-        post.stars[props.splitId] = null;
+        post.nCount++;
+        post.stars[props.userSplitId] = null;
       } else {
         if (!post.stars) {
+          console.log("running")
           post.stars = [];
-          
+           post.starCount=0
+           post.nCount=0
         }
         post.starCount++;
-        
-        post.stars[props.splitId] = true;
+        post.nCount--;
+        post.stars[props.userSplitId] = true;
+        //post.stars.push(props.splitId) 
       }
+      set(postRef,post)
     }
-   setLikes(post.starCount)
-   console.log(post.stars)
-   console.log(likes)
+
   });
 }
 
@@ -74,7 +81,7 @@ function toggleStar () {
                         </div>
                         <div className='post__action'>
                           <img onClick={toggleStar} className="post__likeicon"  src={like}></img>
-                          <p >{0}</p>
+                          <p >{props.likes}</p>
                         </div>
                  </div>
             </div>

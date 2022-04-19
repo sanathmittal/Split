@@ -15,10 +15,14 @@ import {
 import { database, db, storage } from "../../../Firebase";
 import { AuthContext } from "../../../Context";
 import { v4 as uuidv4 } from "uuid";
+import Loading from "../../../Reusable/js/Loading";
+import Backdrop from "../../../Reusable/js/Backdrop";
+import WhiteBackDrop from "../../../Reusable/js/WhiteBackDrop";
 
 function CommentModal(props) {
   const [text, settext] = useState("");
   //const [textHeight, settextHeight] = useState("auto");
+  const[isLoading,setISLoading]=useState(false)
   const [image, setimage] = useState("");
   const [preview, setpreview] = useState("");
   const [error, seterror] = useState(null);
@@ -28,6 +32,7 @@ function CommentModal(props) {
 
   const auth = useContext(AuthContext);
   const htmlId = uuidv4();
+ 
   useEffect(() => {
     if (image === "") {
       return;
@@ -49,13 +54,14 @@ function CommentModal(props) {
 
   const onCommentClick = (e) => {
     //   setPostId(htmlId)
+    
     e.preventDefault();
     let month = new Date().getMonth();
     let realmonth = month + 1;
     const day = new Date().getDay();
 
     const year = new Date().getFullYear();
-
+    const newDate=`${day}/${realmonth}/${year}`
     setDate(`${day}/${realmonth}/${year}`);
     console.log(date);
 
@@ -65,35 +71,37 @@ function CommentModal(props) {
       return;
     }
     if (text.length > 0 && image === "") {
-      console.log("ruunig without image");
+      setISLoading(true)
+     // console.log("ruunig without image");
       try {
+        
+        const postListRef = ref(  database, "Comments/" + `${props.eventId}/` + `${props.postId}/` );
+        const newPostRef = push(postListRef);
         set(
-          ref(
-            database,
-            "Comments/" + `${props.eventId}/` + `${props.postId}/` + htmlId
-          ),
+         newPostRef,
           {
             text: text,
-            image: "",
+            image: image,
             creator: props.splitId,
             creatorName: props.splitName,
             creatorAvatar: props.splitAvatar,
             createdAt: date,
-            PostId: htmlId,
+            PostId:newPostRef.key,
           }
         );
-
+    
         setimage("");
         settext("");
         setpreview();
         setshowpreview(false);
         props.setModal(false);
+        setISLoading(false)
         return;
       } catch (error) {
         console.log(error);
       }
     }
-
+    setISLoading(true)
     const storageRef = Storageref(
       storage,
       `CommentImages/${props.eventId}/${htmlId}`
@@ -133,12 +141,10 @@ function CommentModal(props) {
         ).then(async (url) => {
           try {
             // Create a new post reference with an auto-generated id
-
+            const postListRef = ref(database,  "Comments/" + `${props.eventId}/` + `${props.postId}/` );
+            const newPostRef = push(postListRef);
             set(
-              ref(
-                database,
-                "Comments/" + `${props.eventId}/` + `${props.postId}/` + htmlId
-              ),
+              newPostRef,
               {
                 text: text,
                 image: url,
@@ -146,15 +152,18 @@ function CommentModal(props) {
                 creatorName: props.splitName,
                 creatorAvatar: props.splitAvatar,
                 createdAt: date,
-                PostId: htmlId,
+                PostId: newPostRef.key,
+                nCount:0
               }
             );
+       
 
             setimage("");
             settext("");
             setpreview();
             setshowpreview(false);
             props.setModal(false);
+            setISLoading(false)
           } catch (error) {
             console.log(error);
             seterror(error);
@@ -162,7 +171,9 @@ function CommentModal(props) {
         });
       }
     );
+   // 
   };
+ 
 
   return (
     <CSSTransition
@@ -172,7 +183,13 @@ function CommentModal(props) {
       mountOnEnter
       unmountOnExit
     >
+
       <div className="commentmodal">
+        {isLoading &&  
+        <WhiteBackDrop></WhiteBackDrop>
+   
+         }
+      
         <p>Commenting on {props.postCreatorName}</p>
         <div className="commentmodal-text">
           <img src={props.splitAvatar}></img>
@@ -212,6 +229,11 @@ function CommentModal(props) {
             Comment
           </button>
         </div>
+            <div className="loading">
+            {isLoading &&  <Loading></Loading>}
+            </div>
+       
+   
       </div>
     </CSSTransition>
   );

@@ -12,7 +12,7 @@ import Backdrop from "../../Reusable/js/Backdrop";
 import EventFilterMenu from "../../Components/js/EventFilterMenu";
 import filter from "../../assets/websiteimages/filter.svg";
 import { AuthContext } from "../../Context";
-import { Navigate } from "react-router-dom";
+import { Navigate ,useNavigate} from "react-router-dom";
 import {
   collection,
   query,
@@ -22,9 +22,11 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../../Firebase";
+import Loading from "../../Reusable/js/Loading";
 function HomePage() {
   const [showLeftnav, setShowleftnav] = useState(false);
   const [showEventFilter, setShowEventFilter] = useState(false);
+  const [isLoading,setIsLoading]=useState(false)
   const [eventsJoined, setEventsJoined] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const auth = useContext(AuthContext);
@@ -36,24 +38,34 @@ function HomePage() {
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
+   
+   const navigate=useNavigate() 
 
   useEffect(async () => {
     const events = [];
+    setIsLoading(true)
 
-    const q = collection(db, "Events");
+try {
+  const q = collection(db, "Events");
+  const querySnapshot = await getDocs(q);
+  console.log(querySnapshot)
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.data())
 
-      //   console.log(doc.id, " => ", doc.data());
-      const data = doc.data();
-      events.push({ ...data, eventId: doc.id });
-    });
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    // console.log(doc.data())
 
-    setAllEvents(events);
- 
+    //   console.log(doc.id, " => ", doc.data());
+    const data = doc.data();
+    events.push({ ...data, eventId: doc.id });
+  });
+
+  setAllEvents(events);
+} catch (error) {
+      navigate("/error")
+}
+   
+   setIsLoading(false)
   }, [auth.uid]);
 
 
@@ -65,7 +77,7 @@ if (auth.uid === "" || !auth.uid){
   return
 }
     const splitsref = collection(db, "users", auth.uid, "Splits");
-
+      
     const querySnapshot = await getDocs(splitsref);
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -85,7 +97,7 @@ if (auth.uid === "" || !auth.uid){
     <BreakpointProvider>
      
       <div className="home-page__page-container">
-   
+     
         {showLeftnav && (
           <Backdrop
             onClick={() => {
@@ -101,8 +113,10 @@ if (auth.uid === "" || !auth.uid){
           className="homepage-leftnav"
         ></LeftNavMobile>
         <div className="homepage">
-          {" "}
+          {" "} 
+          {isLoading && <Loading></Loading>}
           <div className="homepage__topnav">
+            
             <div className="homepage__topnav-menus">
               <img
                 className="homepage__menu"
@@ -115,20 +129,20 @@ if (auth.uid === "" || !auth.uid){
             </div>
             <div className="homepage__topnav-links">
               <p className="allevents">All Events</p>
-              <div className="homepage__topnav-right">
+              {/* <div className="homepage__topnav-right">
                 <p className="joined">Joined</p>
                 <p className="wishist">wishlist</p>
                 <p className="wishist">Coming soon</p>
-              </div>
-              <img
+              </div> */}
+              {/* <img
                 onClick={() => {
                   setShowEventFilter((prev) => !prev);
                 }}
                 className="homepage__topnav-fltericon"
                 src={filter}
-              ></img>
+              ></img> */}
             </div>
-            {showEventFilter && <EventFilterMenu></EventFilterMenu>}
+            {/* {showEventFilter && <EventFilterMenu></EventFilterMenu>} */}
           </div>
           <div className="home-page__eventcards">
             <div className="eventcards-container">

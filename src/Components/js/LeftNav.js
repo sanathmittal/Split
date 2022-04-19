@@ -17,6 +17,10 @@ const onLogoutClick=()=>{
         // An error happened.
         return;
       });
+     
+      window.localStorage.removeItem("SplitIsAuth")
+      window.localStorage.removeItem("currentChatConnectionId")
+      window.localStorage.removeItem("currentChatSplitId")
       Navigate('/')
 }
 
@@ -28,7 +32,7 @@ const onLogoutClick=()=>{
             <div className='leftnav-options'>
             <div className='leftnav-option'>
                 <img src={contactus} />
-                <p className='option-des'>Contact Us</p>
+                <p className='option-des' onClick={()=>{Navigate("/contactus")}} >Contact Us</p>
             </div>
             <div className='leftnav-option'>
                 <img src={aboutus} />

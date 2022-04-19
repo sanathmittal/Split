@@ -3,19 +3,20 @@ html{
 }
 .image{
     background: #d6d6d6;
-     max-width: 19.6rem;
+     max-width: 25.6rem;
     // padding: 0.3rem;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
     padding-top: 0.3rem;
     padding-bottom: 0.3rem;
     border-radius: 1rem;
     object-fit: contain;
+    margin-left: 1rem;
 }
 .image>img{
    
-    height: 29rem;
-    width: 19rem;
+    height: 31rem;
+    width: 25rem;
     display: block;
     margin: 0 auto;
 }

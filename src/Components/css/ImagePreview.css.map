@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAA;EACA,SAAS,EAAE,KAAK;CACnB",
+    "sources": [
+        "ImagePreview.scss"
+    ],
+    "names": [],
+    "file": "ImagePreview.css"
+}

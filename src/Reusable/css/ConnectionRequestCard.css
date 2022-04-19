@@ -1,0 +1,84 @@
+html {
+  font-size: 62.5%;
+}
+
+.connectionrequest-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.6rem;
+  background: #fafafa;
+  border: 1px solid #3ff31b;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+  padding-left: 2.4rem;
+  border-radius: 2rem;
+  -webkit-box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.25);
+  margin-bottom: 2.4rem;
+  font-family: "Rubik", sans-serif;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.connectionrequest-card__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.6rem;
+}
+
+.connectionrequest-card__info > img {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+}
+
+.connectionrequest-card__name {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1.8rem;
+}
+
+.connectionrequest-card__connectiondate {
+  font-size: 1.6rem;
+}
+
+.connectionrequest-card-buttons {
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.connectionrequest-card-accept {
+  margin-top: 0.4rem;
+  margin-right: 3.2rem;
+  width: 8rem;
+  height: 2.6rem;
+  font-size: 1.4rem;
+  color: #fff;
+  border: none;
+  background: #70ec70;
+  border-radius: 5px;
+  -webkit-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.connectionrequest-card-reject {
+  margin-top: 0.4rem;
+  margin-right: 3.2rem;
+  width: 8rem;
+  height: 2.6rem;
+  font-size: 1.4rem;
+  color: #fff;
+  border: none;
+  background: #EC5844;
+  border-radius: 5px;
+  -webkit-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+/*# sourceMappingURL=ConnectionRequestCard.css.map */

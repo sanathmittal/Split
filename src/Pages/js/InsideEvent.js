@@ -25,20 +25,25 @@ import {
 import { database, db } from "../../Firebase";
 
 import { useNavigate, useParams,useLocation } from "react-router-dom";
-import { ref, push, set, onValue } from "firebase/database";
+import { ref, push, set, onValue , query as databasequery,orderByValue,orderByChild} from "firebase/database";
+import Loading from "../../Reusable/js/Loading";
 
 
 function InsideEvent() {
   const [showLeftNav, setShowLeftNav] = useState(false);
+  const [isLoading,setIsLoading]=useState(false)
   const [showPostModal, setPostModal] = useState(false);
   const [showCommentModal, setCommentModal] = useState(false);
-  const [showChooseModal,setChooseModal]=useState(true)
+  const [showChooseModal,setChooseModal]=useState(false)
   const [showProfileDetail, setshowProfileDetail] = useState(false);
-  const [backdrop, setBackdrop] = useState(true);
+  const [backdrop, setBackdrop] = useState(false);
   const [splitid, setsplitid] = useState("");
+  const [recentPostId,setRecentPostId]=useState("")
   const [split, setSplit] = useState({
     name: "",
     avatar: "",
+    bio:"",
+    id:"",
   });
   const [viewSplit, setViewSplit] = useState({
     name: "",
@@ -46,6 +51,7 @@ function InsideEvent() {
     avatar: "",
     connections: "",
     id: "",
+    Choices:[]
   });
   const [posts, setPosts] = useState([]);
   const [commentingonpostId, setCommentingOnPostId] = useState("");
@@ -61,17 +67,29 @@ const location=useLocation()
     setBackdrop(false);
     setCommentModal(false);
     setshowProfileDetail(false);
+    setChooseModal(false)
   };
 
   const setModal = (data) => {
     // setBackdrop(data);
     setPostModal(data);
     setCommentModal(data);
+ 
   };
+  const setChoosingModal=(data)=>{
+    setChooseModal(false)
+    setBackdrop(false);
+  }
 
   const setModalTrue=(data)=>{
     setChooseModal(true)
   }
+
+  const onRecentPostId=(data)=>{
+    console.log(data)
+   setRecentPostId(data)
+  }
+
 
   const commenticonClick = (postId, postCreatorName) => {
     setCommentingOnPostId(postId);
@@ -80,6 +98,26 @@ const location=useLocation()
     setCommentModal(true);
     setBackdrop(true);
   };
+
+//******************** fetching Choices ***********************/
+const[choices,setChoices]=useState([])
+useEffect(async () => {
+  if (params.eid=== "") {
+    return;
+  }
+
+  const docRef = doc(db, "Events",params.eid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+   
+    setChoices(docSnap.data().Choices)
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+}, [params.eid]);
+
 
   useEffect(async () => {
     const q = query(
@@ -108,6 +146,8 @@ const location=useLocation()
       setSplit({
         name: docSnap.data().name,
         avatar: docSnap.data().avatar,
+        bio:docSnap.data().bio,
+        id:splitid
       });
     } else {
       // doc.data() will be undefined in this case
@@ -115,19 +155,61 @@ const location=useLocation()
     }
   }, [splitid]);
 
+
+//******************fetching posts *********************** */
+const [priorityPosts,setPriorityPosts]=useState([])
+
+
   useEffect(() => {
-    const postsRef = ref(database, "posts/" + `${params.eid}/`);
+ 
+    let priorityArray=[]
+    let normalArray=[]
+    let dataArray=[]
+    setIsLoading(true)
+    const postsRef =databasequery( ref(database, "posts/" + `${params.eid}/`), orderByChild('nCount'))
     onValue(postsRef, (snapshot) => {
       const data = snapshot.val();
+       priorityArray=[]
+       normalArray=[]
+        dataArray=[]
       if (data === null) {
         return;
       }
-      const dataArray = Object.values(data);
-
-      setPosts(dataArray);
-      // updateStarCount(postElement, data);
+      if(splitid === null){
+        return;
+      }
+      snapshot.forEach((child)=> {
+        dataArray.push(child.val())
     });
-  }, [params.eid]);
+
+      
+      console.log(dataArray)
+           dataArray.forEach((post)=>{
+            
+             if(post.PriorityUsers === undefined){
+              normalArray.push(post)
+               return;
+             }
+             if(post.PriorityUsers === null){
+              normalArray.push(post)
+               return;
+             }
+             if(post.PriorityUsers.includes(splitid)){
+                priorityArray.push(post)
+                
+             }
+             else{
+               normalArray.push(post)
+             }
+           })
+           console.log("p",priorityArray)
+           console.log("n",normalArray)
+           console.log(splitid)
+      setPosts(normalArray)
+     setPriorityPosts(priorityArray)
+            setIsLoading(false)
+    });
+  }, [params.eid,splitid]);
 
   const onProfileClick = async (data) => {
     const docRef = doc(db, "Events", params.eid, "Participants", data);
@@ -140,6 +222,8 @@ const location=useLocation()
         bio: docSnap.data().bio,
         connections: "0",
         id: data,
+        userId: docSnap.data().user,
+        Choices:docSnap.data().choices
       });
     } else {
       // doc.data() will be undefined in this case
@@ -164,8 +248,10 @@ const location=useLocation()
         {backdrop && <Backdrop onClick={onBackdropClick}></Backdrop>}
         <ChoosingpeopleModal
           show={showChooseModal}
-          Choices={location.state.Choices}
+          Choices={choices}
           eventId={params.eid}
+          RecentPostId={recentPostId}
+          setModal={ setChoosingModal}
         ></ChoosingpeopleModal>
         <PostModal
           splitId={splitid}
@@ -176,6 +262,7 @@ const location=useLocation()
           show={showPostModal}
           setModal={setModal}
           setModalTrue={setModalTrue}
+          onRecentPostId={onRecentPostId}
         ></PostModal>
         <CommentModal
           splitId={splitid}
@@ -189,13 +276,16 @@ const location=useLocation()
           setModal={setModal}
         ></CommentModal>
         <ProfileDetailModal
+            selfUser={split}
           show={showProfileDetail}
           name={viewSplit.name}
           avatar={viewSplit.avatar}
           connections={viewSplit.connections}
           bio={viewSplit.bio}
           viewSplitId={viewSplit.id}
+          userId={viewSplit.userId}
           splitId={splitid}
+          Choices={viewSplit.Choices}
         ></ProfileDetailModal>
         <Breakpoint customQuery="(min-width: 1200px)">
           <LeftNav></LeftNav>
@@ -212,7 +302,8 @@ const location=useLocation()
           ></TopNav>
 
           <div className="insideeventpage__posts">
-            {posts.map((post) => (
+            {isLoading && <Loading></Loading>}
+            {priorityPosts.map((post) => (
               <Post
                 splitAvatar={post.creatorAvatar}
                 splitName={post.creatorName}
@@ -220,7 +311,7 @@ const location=useLocation()
                 text={post.text}
                 media={post.image}
                 comments={0}
-                likes={0}
+                likes={post.starCount}
                 key={post.PostId}
                 postId={post.PostId}
                 eventId={params.eid}
@@ -230,6 +321,28 @@ const location=useLocation()
                 userSplitName={split.name}
                 onProfileClick={onProfileClick}
                 commenticonClick={commenticonClick}
+                onRecentPostId={onRecentPostId}
+              ></Post>
+            ))}
+             {posts.map((post) => (
+              <Post
+                splitAvatar={post.creatorAvatar}
+                splitName={post.creatorName}
+                date={post.createdAt}
+                text={post.text}
+                media={post.image}
+                comments={0}
+                likes={post.starCount}
+                key={post.PostId}
+                postId={post.PostId}
+                eventId={params.eid}
+                splitId={post.creator}
+                userSplitId={splitid}
+                userAvatar={split.avatar}
+                userSplitName={split.name}
+                onProfileClick={onProfileClick}
+                commenticonClick={commenticonClick}
+                onRecentPostId={onRecentPostId}
               ></Post>
             ))}
           </div>

@@ -23,6 +23,22 @@ html{
     margin-top: 0.8rem;
     cursor: pointer;
 }
+.profile>p:hover{
+  text-decoration: underline;
+}
+.rightnav>button{
+  font-size: 2.4rem;
+  width: 18rem;
+  height: 4rem;
+  border: none;
+  border-radius: 1rem;
+  color: #ffff;
+  background-color: rgb(67, 79, 250);
+ // margin-left: 2.4rem;
+  box-shadow: (3px 3px 4px rgb(72, 79, 104));
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
 .notifications{
 
 }

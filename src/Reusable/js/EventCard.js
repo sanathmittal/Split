@@ -27,14 +27,14 @@ function EventCard(props) {
     },[props.status])
 
 const onDetailsClick=()=>{
-    Navigate(`/eventdetails/${props.eventId}`)
+    Navigate(`/eventdetails/${props.eventId}`,{state:{Choices:props.Choices,isJoined:isjoined}})
 } 
 
 const onjoinClick=()=>{
-    Navigate(`/${props.eventId}/${props.heading}/createsplit`,{state:{Choices:props.Choices}})
+    Navigate(`/${props.eventId}/createsplit`,{state:{Choices:props.Choices}})
 }
 const onengageClick=()=>{
-    Navigate(`/event/${props.eventId}`,{state:{Choices:props.Choices}})
+    Navigate(`/event/${props.eventId}`)
 }
 
 
@@ -47,10 +47,10 @@ const onengageClick=()=>{
             </div>
             <p className='card-des'>{props.des}</p>
             <div className='card-bottom'>
-                <img src={love} />
+                {/* <img src={love} /> */}
                 <div className='card-bottom__buttons'>
                 <button className={buttonclass} onClick={isjoined ?onengageClick:onjoinClick}>{buttontext}</button>
-                <button className='button-details' onClick={onDetailsClick}>Deatils</button>
+                <button className='button-details'  onClick={onDetailsClick}>Deatils</button>
                 </div>
             </div>
 

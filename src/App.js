@@ -6,7 +6,7 @@ import {AuthContext} from "./Context"
 import {auth,db} from "./Firebase"
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc,collection,getDocs } from "firebase/firestore";
-
+import { Navigate ,useNavigate} from "react-router-dom";
 
 function App() {
 
@@ -19,6 +19,35 @@ function App() {
   const [userconnections, setuserconnections] = useState(null)
    const [userSplits,setuserSplits]=useState([])
   
+// const navigate = useNavigate()
+
+   useEffect(()=>{
+ 
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        console.log(uid)
+        setuid(uid)
+        setuser(user)
+        
+        // ...
+      }
+      // if(window.localStorage.getItem("SplitIsAuth") && !user){
+      //  console.log("error is here")
+      // }
+
+
+      else {
+        // User is signed out
+        // ...
+        console.log("no user")
+      }
+    });
+  },[])
+
+
 
   // this function is being called 3 times
   useEffect(async ()=>{
@@ -73,25 +102,7 @@ function App() {
       return;
     }
   },[user])
-  useEffect(()=>{
- 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        console.log(uid)
-        setuid(uid)
-        setuser(user)
-        
-        // ...
-      } else {
-        // User is signed out
-        // ...
-        console.log("no user")
-      }
-    });
-  },[])
+
   const splits = [];
 
   // useEffect(async () => {

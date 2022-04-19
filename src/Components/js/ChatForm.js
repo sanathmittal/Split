@@ -32,12 +32,7 @@ useEffect(()=>{
     function  writeChat(e) {
         e.preventDefault()
         if (result === 1){
-            // set(ref(database, 'Chatrooms/' +  props.currentSplitId +','+props.currentConnectionId + '/' + htmlId), {
-            //     MessageId:htmlId,
-            //   Sender:props.currentSplitId,
-            //   Reciver:props.currentConnectionId,
-            //   text : text,
-            // });
+          
        const chatRoomId=props.currentSplitId + ','+ props.currentConnectionId 
        //`${props.currentSplitId},${props.currentConnectionId}`
             const postListRef = ref(database, 'Chatrooms/' + chatRoomId);
@@ -56,14 +51,7 @@ useEffect(()=>{
      
         }
         if(result === -1){
-           
-            // set(ref(database, 'Chatrooms/' + props.currentConnectionId +','+props.currentSplitId + '/' + htmlId), {
-            //     MessageId:htmlId,
-            //   Sender:props.currentSplitId,
-            //   Reciver:props.currentConnectionId,
-            //   text : text,
-            // });   
-//
+        
             const postListRef = ref(database, 'Chatrooms/' +  `${props.currentConnectionId},${props.currentSplitId}` );
             const newPostRef = push(postListRef);
            set(newPostRef, {

@@ -1,0 +1,40 @@
+html{
+    font-size: 62.5%;
+}
+.errorpage__container{
+    display: grid;
+    grid-template-columns: 2fr 7fr 3fr;
+}
+.error-page{
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid rgb(175, 175, 175);
+    border-right: 1px solid rgb(175, 175, 175);
+    //padding-bottom: 4.8rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 350;
+    height: 100vh;
+}
+.error-page__content-img{
+    display: flex;
+    justify-content: center;
+}
+.error-page__content-img>img{
+ margin-top: 8rem;
+ height: 60%;
+ width: 60%;
+// height: 42rem;
+// width: 60rem;
+align-self: center;
+}
+.error-page__heading{
+ font-size: 4rem;
+ text-align: center;
+ margin-top: 2.4rem;
+ color: #FF1203;
+}
+.error-page__subheading{
+  font-size: 2.8rem;
+  text-align: center;
+  margin-top: 2.4rem;
+} 

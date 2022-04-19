@@ -23,6 +23,9 @@ function RightNav() {
       />
             <p onClick={()=>{Navigate(`/profile/${Auth.uid}`)}}>{Auth.username}</p>
            </div>
+
+         <button type='button' onClick={()=>{Navigate(`/${Auth.uid}/chat`)}}>Chats</button> 
+
            <div className='notifications'>
               <p>Recent messages</p>
               <div className='messages'>

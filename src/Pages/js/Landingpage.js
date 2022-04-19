@@ -48,6 +48,8 @@ function Landingpage() {
               name: name,
              email:email
             });
+            window.localStorage.setItem("SplitIsAuth",userCredential.user.uid )
+            Navigate('/home')
            }catch(e){
              console.log("error while adding user to the database",e)
            }
@@ -63,18 +65,20 @@ function Landingpage() {
         });
 
        
-
+      
       setEmail("");
       setPassword("");
       setConfirmPassword("")
-     Navigate('/home')
+    
     };
     const Loginhandler = (e) => {
       e.preventDefault();
   
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+          window.localStorage.setItem("SplitIsAuth",userCredential.user.uid )
           console.log("loggedin", userCredential.user);
+          Navigate('/home')
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -82,9 +86,10 @@ function Landingpage() {
           console.log(error)
           setError(error.message)
         });
+      
       setEmail("");
       setPassword("");
-      Navigate('/home')
+  
     };
   const onFormFocus=()=>{
     setError('')

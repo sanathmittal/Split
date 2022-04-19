@@ -5,18 +5,21 @@ import help from "../../assets/websiteimages/help.svg"
 import resources from "../../assets/websiteimages/resources.svg"
 import aboutus from "../../assets/websiteimages/aboutus.svg"
 import {CSSTransition} from "react-transition-group"
+import { useNavigate } from "react-router-dom";
 
 function LeftNavMobile(props) {
+const navigate = useNavigate()
+
     return (
         <CSSTransition  in={props.show} timeout={100} classNames="slide-in-left" mountOnEnter unmountOnExit >
         <div className='leftnavmobile'>
             <p className='leftnav-heading'>Split</p>
-            <button className='leftnav-button'>Join a event</button>
+            <button className='leftnav-button' onClick={()=>{navigate("/home")}} >Join a event</button>
             <div className='options-container'>
             <div className='leftnav-options'>
             <div className='leftnav-option'>
                 <img src={contactus} />
-                <p className='option-des'>Contact Us</p>
+                <p className='option-des'  onClick={()=>{navigate("/contactus")}}>Contact Us</p>
             </div>
             <div className='leftnav-option'>
                 <img src={aboutus} />

@@ -8,6 +8,7 @@ import PostImagePreview from "../../js/PostImagePreview";
 import { ref, push, set , onValue } from "firebase/database";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
+
 import {
   ref as Storageref,
   uploadBytes,
@@ -18,8 +19,12 @@ import { database, db, storage } from "../../../Firebase";
 import { AuthContext } from "../../../Context";
 import nextId from "react-id-generator";
 import { v4 as uuidv4 } from "uuid";
+import Loading from "../../../Reusable/js/Loading";
+import WhiteBackDrop from "../../../Reusable/js/WhiteBackDrop";
+import LLoading from "../../../Reusable/js/LLoading";
 
 function PostModal(props) {
+  const[isLoading ,setIsLoading]=useState(false)
   const [text, settext] = useState("");
   const [textHeight, settextHeight] = useState("auto");
 
@@ -31,6 +36,7 @@ function PostModal(props) {
   const [postId, setPostId] = useState();
   const [date, setDate] = useState("");
 
+  const [recentPostId,setRecentPostId]=useState("")
 
   const auth = useContext(AuthContext);
   const htmlId = uuidv4();
@@ -67,7 +73,7 @@ function PostModal(props) {
     const year = new Date().getFullYear();
 
     setDate(`${day}/${realmonth}/${year}`);
-    console.log(date);
+    // console.log(date);
 
     if (text === "" && image === "") {
       seterror(" cant create a  empty  post");
@@ -75,35 +81,42 @@ function PostModal(props) {
       return;
     }
     if(text.length> 0 && image === ""){
-         console.log("ruunig without image")
+      setIsLoading(true)
+        // console.log("ruunig without image")
           try {
-            set(ref(database, "posts/" + `${props.eventId}/` + htmlId), {
-              text: text,
-              image: '',
-              creator: props.splitId,
-              creatorName: props.splitName,
-              creatorAvatar: props.splitAvatar,
-              createdAt: date,
-              PostId:htmlId
-            });
+            const postListRef = ref(database, "posts/" + `${props.eventId}/` );
+const newPostRef = push(postListRef);
+set(newPostRef, {
+  text: text,
+  image: '',
+  creator: props.splitId,
+  creatorName: props.splitName,
+  creatorAvatar: props.splitAvatar,
+  createdAt: date,
+  PostId:newPostRef.key,
+  nCount:0
+});
+
 
             setimage('')
             settext("")
             setpreview() 
             setshowpreview(false)
+            setIsLoading(false)
             props.setModal(false)
             props.setModalTrue(true)
-            return;
+            
+            props.onRecentPostId(newPostRef.key)
+        
+            console.log("pm",newPostRef.key)
+            //return;
           } catch (error) {
             console.log(error)
           }
-
-  
-
-
     }
 
-   
+if(image !== ""){
+  setIsLoading(true)
     const storageRef = Storageref(
       storage,
       `PostImages/${props.eventId}/${htmlId}`
@@ -144,29 +157,50 @@ function PostModal(props) {
           try {
             // Create a new post reference with an auto-generated id
 
-            set(ref(database, "posts/" + `${props.eventId}/` + htmlId), {
+            const postListRef = ref(database, "posts/" + `${props.eventId}/` );
+            const newPostRef = push(postListRef);
+            set(newPostRef, {
               text: text,
               image: url,
               creator: props.splitId,
               creatorName: props.splitName,
               creatorAvatar: props.splitAvatar,
               createdAt: date,
-              PostId:htmlId
+              PostId:newPostRef.key,
+              nCount:0
             });
+           // setRecentPostId(newPostRef.key)
+          
+            // set(ref(database, "posts/" + `${props.eventId}/` + htmlId), {
+            //   text: text,
+            //   image: url,
+            //   creator: props.splitId,
+            //   creatorName: props.splitName,
+            //   creatorAvatar: props.splitAvatar,
+            //   createdAt: date,
+            //   PostId:htmlId
+            // });
 
             setimage('')
             settext("")
             setpreview()
             setshowpreview(false)
+            setIsLoading(false)
             props.setModal(false)
+            props.setModalTrue(true)
+            props.onRecentPostId(newPostRef.key)
 
+            console.log("pm",newPostRef.key)
           } catch (error) {
             console.log(error);
             seterror(error);
           }
+
         });
       }
+      
     );
+    }
   };
 
   //   })
@@ -186,6 +220,7 @@ function PostModal(props) {
       unmountOnExit
     >
       <div className="postmodal">
+        {isLoading && <WhiteBackDrop></WhiteBackDrop>}
         <div className="postmodal-text">
           <img src={props.splitAvatar}></img>
           <div className="postmodal-text-content">
@@ -218,6 +253,10 @@ function PostModal(props) {
             id="post-media"
           ></input>
           <button onClick={onPostClick}>Post</button>
+          {isLoading && 
+          // <LLoading></LLoading>
+          <Loading></Loading>
+          }
         </div>
       </div>
     </CSSTransition>

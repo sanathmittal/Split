@@ -1,0 +1,134 @@
+.loader {
+    left: 50%;
+    overflow: hidden;
+    padding: 10px 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%);
+    width: 150px;
+    z-index: 110;
+    .ball {
+      background: #70ec70;
+      border-radius: 5px;
+      display: block;
+      height: 10px;
+      left: 15px;
+      position: absolute;
+      top: 5px;
+      width: 10px;
+  
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: along;
+      animation-timing-function: linear;
+    }
+  
+    .ball2 {
+      background: #70ec70;
+      border-radius: 5px;
+      display: block;
+      height: 10px;
+      left: 15px;
+      position: absolute;
+      top: 5px;
+      width: 10px;
+  
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: along;
+      animation-timing-function: linear;
+      animation-delay: -1s;
+    }
+  
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+  
+    li {
+      background-color: #64f864;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 0;
+      height: 10px;
+      width: 30px;
+  
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+animation-name: around;
+      animation-timing-function: linear;
+  
+      &:nth-child(1) {animation-delay: 0s;
+      }
+  
+      &:nth-child(2) {
+        background-color: #64f864;
+    animation-delay: 0.05s;
+      }
+  
+      &:nth-child(3) {
+        background-color: #64f864;
+    animation-delay: 0.1s;
+      }
+  
+      &:nth-child(4) {
+        background-color: #64f864;
+    animation-delay: 0.15s;
+      }
+  
+      &:nth-child(5) {
+        background-color: #64f864;
+    animation-delay: 0.2s;
+      }
+    }
+  }
+  
+  @keyframes around {
+    0% {
+    transform: rotate(0deg);
+    }
+    100% {
+    transform: rotate(359deg);
+    }
+  }
+  
+  @keyframes along {
+    0% {
+      left: 0;
+      top: 5px;
+    }
+    5% {
+      top: 3px;
+    }
+    10% {
+      top: 5px;
+    }
+    15% {
+      top: 3px;
+    }
+    20% {
+      top: 5px;
+    }
+    25% {
+      top: 3px;
+    }
+    30% {
+      top: 5px;
+    }
+    35% {
+      top: 3px;
+    }
+    40% {
+      top: 5px;
+    }
+    45% {
+      top: 3px;
+    }
+    50% {
+      left: 100%;
+      top: 5px;
+    }
+    100% {
+      left: 100%;
+    }
+  }

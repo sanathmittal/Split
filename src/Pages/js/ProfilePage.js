@@ -23,7 +23,9 @@ import  { Breakpoint, BreakpointProvider } from 'react-socks';
 import Avatar from "@material-ui/core/Avatar";
 import {AuthContext} from "../../Context"
 import { useNavigate } from "react-router-dom";
+import Loading from '../../Reusable/js/Loading'
 function ProfilePage() {
+  const [isLoading,setIsLoading]=useState(false)
     const[showSplits,setShowSplits]=useState(true)
     const[Splits,setSplits]=useState([])
     const[showLeftNav,setShowLeftNav]=useState(false)
@@ -67,6 +69,7 @@ function ProfilePage() {
 
 
 useEffect(async () => {
+  setIsLoading(true)
   const splits = [];
 
   const q = collection(db, "users",auth.uid,"Splits");
@@ -82,6 +85,7 @@ useEffect(async () => {
   });
 
   setSplits(splits);
+  setIsLoading(false)
 console.log("sasa",auth.usersplits)
 }, [auth.uid]);
 
@@ -99,7 +103,7 @@ console.log("sasa",auth.usersplits)
             <ChangePasswordModal show={changePasswordModal}></ChangePasswordModal> 
             <EditProfileModal show={editProfileModal}></EditProfileModal> 
             <div className='profile-page'>
-              <TopNav heading={auth.username} onMenuClick={()=>{setShowLeftNav(true)}}></TopNav>
+              <TopNav heading={` ${auth.username}`} onMenuClick={()=>{setShowLeftNav(true)}}></TopNav>
               <div className='profile-container'>
               <div className='profile-page__profile'>
                    {/* <img className='profile-img' src={profileimage}></img> */}
@@ -141,7 +145,7 @@ console.log("sasa",auth.usersplits)
                   showSplits && <div className='profile-page-splits'>
                       
                        {Splits.map((split)=><SplitCard  onClick={()=>{Navigate(`/split/${split.splitId}`)}} avatar={split.avatar}  name={split.name} event={split.eventName} key={split.splitId} id={split.splitId} ></SplitCard>)}
-                      
+                      {isLoading && <Loading></Loading>}
                   </div>
               }
              

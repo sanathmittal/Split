@@ -7,7 +7,7 @@ import Backdrop from "../../Reusable/js/Backdrop";
 import TopNav from "../../Components/js/TopNav";
 import { Breakpoint, BreakpointProvider } from "react-socks";
 import eventimage from "../../assets/Dummyimages/eventimage2.jpg";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 import { doc, getDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../Firebase";
 function EventDetails() {
@@ -23,14 +23,17 @@ function EventDetails() {
   });
 
   const Navigate = useNavigate();
-
+  const location=useLocation()
   const [started, setstarted] = useState();
 
   const eventId = useParams();
 
   const onjoinClick = () => {
-    Navigate(`/${eventId.eid}/createsplit`);
+    Navigate(`/${eventId.eid}/createsplit` ,{state:{Choices:location.state.Choices}});
   };
+  const onengageClick=()=>{
+    Navigate(`/event/${eventId.eid}`)
+}
 
   useEffect(async () => {
     //  console.log('sbsh',eventId.eid)
@@ -108,7 +111,9 @@ function EventDetails() {
                 {event.userGuidelines}
               </p>
             </div>
-            <button onClick={ onjoinClick}>Join</button>
+            
+            {location.state.isJoined ?  <button id="engage-button" onClick={ onengageClick}> Engage</button> :     <button onClick={ onjoinClick}>Join</button>}
+        
           </div>
         </div>
 

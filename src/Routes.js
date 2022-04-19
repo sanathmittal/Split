@@ -6,7 +6,7 @@ import {
   useLocation
 
   } from "react-router-dom";
-  import React,{useContext} from 'react'
+  import React,{useContext,useState,useEffect} from 'react'
   import Landingpage from './Pages/js/Landingpage';
   import HomePage from "./Pages/js/HomePage";
  import ProfilePage from "./Pages/js/ProfilePage";
@@ -17,22 +17,15 @@ import InsideEvent from "./Pages/js/InsideEvent";
 import PostDetails from "./Pages/js/PostDetails";
 import ChatPage from "./Pages/js/ChatPage";
   import {AuthContext} from "./Context"
+ import PrivateRoute from "./private_route";
+import PersonalRoute from "./Personal_Routes";
+import ErrorPage from "./Pages/js/ErrorPage";
+import ContactUs from "./Pages/js/ContactUs";
+
   function Routes() {
 
     
-   const auth =useContext(AuthContext)
-  //  const CustomWrapper = () => {
-  //   const location = useLocation();
-  //   return (auth.user===null)? (
-  //     <HomePage />
-  //   ) : (
-  //     <Navigate
-  //       to={`/`}
-  //       replace
-  //       state={{ location }}
-  //     />
-  //   )
-  // };
+
 
       return (
         <BrowserRouter>
@@ -40,16 +33,18 @@ import ChatPage from "./Pages/js/ChatPage";
        
         <Route path="/" element={<Landingpage/>} />
        {/* <Route path="/home" exact element={<CustomWrapper  />}/>  */}
-       <Route path="/home" exact element={<HomePage/>}/>
-        <Route path="/profile/:uid" exact element={<ProfilePage/>}/>
+       {/* <Route path="/home" exact element={<HomePage/>}/> */}
+       <Route  path="/home"  element={ <PrivateRoute>  <HomePage/>  </PrivateRoute> }/>
+        <Route path="/profile/:uid" exact element={<PersonalRoute><ProfilePage/></PersonalRoute>}/>
         <Route path="/split/:sid" exact element={<SplitPage/>}/>
-        <Route path="/eventdetails/:eid" exact element={<EventDetails/>}/>
-        <Route path="/:eid/:ename/createsplit" exact element={<CreateSplit/>}/>
+        <Route path="/eventdetails/:eid" exact element={<PrivateRoute> <EventDetails/></PrivateRoute>}/>
+        <Route path="/:eid/createsplit" exact element={<PrivateRoute><CreateSplit/></PrivateRoute>}/>
         <Route path="/event/:eid" exact element={<InsideEvent/>}/>
         <Route path="/:eid/post/:pid" exact element={<PostDetails/>}/>
-        <Route path="/:sid/chat" exact element={<ChatPage/>}/>
+        <Route path="/:uid/chat" exact element={<PersonalRoute><ChatPage/></PersonalRoute>}/>
         {/* { auth.user? null : <Navigate from="/home" to="/" /> } */}
-       
+        <Route path="/error" exact element={<ErrorPage></ErrorPage>}/>
+        <Route path="/contactus" exact element={<PrivateRoute><ContactUs></ContactUs> </PrivateRoute>}/>
         </Ways>
         </BrowserRouter>
       )

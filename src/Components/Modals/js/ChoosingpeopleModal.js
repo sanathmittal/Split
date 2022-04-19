@@ -4,7 +4,8 @@ import { CSSTransition } from "react-transition-group";
 import girl from "../../../assets/Dummyimages/Girl4.jpg";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import {db} from "../../../Firebase"
-
+import {  ref, set ,update} from "firebase/database";
+import {database} from "../../../Firebase"
 function ChoosingpeopleModal(props) {
   const [checkedState, setCheckedState] = useState(
     new Array(props.Choices.length).fill(false)
@@ -12,7 +13,17 @@ function ChoosingpeopleModal(props) {
   const [choices, setChoices] = useState([]);
  const [allParticipants,setAllParticipants]=useState([])
  const [currentMatches,setCurrentMatches]=useState([])
-const [match,setMatch]=useState(false)
+
+const [users,setUsers]=useState([])
+const [checkedUserState, setCheckedUserState] = useState(
+  new Array(currentMatches.length).fill(false)
+);
+useEffect(()=>{
+  setCheckedUserState(
+    new Array(currentMatches.length).fill(false)
+  )
+},[currentMatches])
+
 const [querys,setQuery]=useState("")
 
   const handleOnChange = (position) => {
@@ -30,12 +41,28 @@ const [querys,setQuery]=useState("")
     });
    // console.log(choicesArray)
     setChoices(choicesArray);
-    // console.log(choicesArray)
   };
 
-  // useEffect(()=>{
 
-  // },[])
+  const handleOnUserChange = (position) => {
+    setQuery("")
+    const updatedCheckedState = checkedUserState.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setCheckedUserState(updatedCheckedState);
+    
+    const usersArray = [];
+    updatedCheckedState.forEach((choice, index) => {
+      if (choice === true) {
+       
+        usersArray.push(currentMatches[index].id);
+      }
+    });
+   console.log(usersArray)
+    setUsers(usersArray);
+    // console.log(choicesArray)
+  };
 
 
 
@@ -62,14 +89,14 @@ allParticipants.forEach((p)=>{
 
 choices.forEach((choice)=>{
   if( p.choices.includes(choice)){
-    console.log("dd",choice,p.id)
+    // console.log("dd",choice,p.id)
     matches.push(true)
   }
   else{
     matches.push(false)
   }
 })
-console.log(matches)
+// console.log(matches)
 if(!matches.includes(false) && matches.includes(true) )
  {
      matchedusers.push(p)
@@ -78,7 +105,7 @@ if(!matches.includes(false) && matches.includes(true) )
   matches=[]
 })
 setCurrentMatches(matchedusers)
-console.log(matchedusers.length)
+
 },[choices])
 
 
@@ -91,19 +118,6 @@ setCheckedState(
   new Array(props.Choices.length).fill(false)
 )
 
-// if(choices !== []){
-// setChoices([])
-// }
-// const  fileterdArray=  allParticipants.filter(post => {
-//   if (querys === "") {
-//     //if query is empty
-//     return [];
-//   } else if (post.name.toLowerCase().includes(querys.toLowerCase())) {
-//     //returns filtered array
-//     return post;
-//   }
-// });
-// setCurrentMatches(fileterdArray)
 
 }
 
@@ -121,6 +135,25 @@ const  fileterdArray=  allParticipants.filter(post => {
   setCurrentMatches(fileterdArray)
 
 }
+const onSubmitClick=()=>{
+  
+ console.log(props.RecentPostId)
+
+  // set(ref(database, "posts/" + `${props.eventId}/` + props.RecentPostId), {
+  //  PriorityUsers:users
+  // });
+  const updates = {};
+  var adaNameRef = ref(database,"posts/" + `${props.eventId}/` + props.RecentPostId);
+  // updates["posts/" + `${props.eventId}/` + props.RecentPostId] = {
+  //   PriorityUsers:users
+
+  // };
+
+update(adaNameRef ,{PriorityUsers:users})
+console.log("dsdsd")
+props.setModal(false)
+}
+
 
   return (
     <CSSTransition
@@ -162,7 +195,7 @@ const  fileterdArray=  allParticipants.filter(post => {
             <button   onClick={onSearchHandler}>Search</button>
             </form>
             {
-              currentMatches.map((c)=>
+              currentMatches.map((c,index)=>
               <div key={c.id} className="choosingmodal-people-entry">
               <img src={c.avatar}></img>
               <div className="choosingmodal-people-entry-text">
@@ -172,7 +205,11 @@ const  fileterdArray=  allParticipants.filter(post => {
                   2 posts in this event
                 </p>
               </div>
-              <input type="checkbox"></input>
+              <input type="checkbox"
+              value={c}
+                   checked={checkedUserState[index]}
+                   onChange={() => handleOnUserChange(index)}
+              ></input>
             </div>
 
               )
@@ -183,7 +220,7 @@ const  fileterdArray=  allParticipants.filter(post => {
           </div>
         </div>
 
-        <button className="choosingmodal-button" type="button">
+        <button onClick={onSubmitClick} className="choosingmodal-button" type="button">
           Submit
         </button>
       </div>

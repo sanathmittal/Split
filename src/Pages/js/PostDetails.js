@@ -8,6 +8,7 @@ import { Breakpoint, BreakpointProvider } from "react-socks";
 import girl1 from "../../assets/Dummyimages/Girl1.jpg";
 import postimage from "../../assets/Dummyimages/postimage.jpg";
 import Post from "../../Reusable/js/Post";
+import Comment from "../../Reusable/js/Comment"
 import ProfileDetailModal from "../../Components/Modals/js/ProfileDetailModal";
 import { AuthContext } from "../../Context";
 import CommentModal from "../../Components/Modals/js/CommentModal";
@@ -36,6 +37,7 @@ function PostDetails() {
     bio: "",
     avatar: "",
     connections: "",
+    choices:[],
     id: "",
   });
   const [comments, setComments] = useState([]);
@@ -85,6 +87,7 @@ const auth=useContext(AuthContext)
         avatar: docSnap.data().avatar,
         bio: docSnap.data().bio,
         connections: "0",
+        choices:docSnap.data().avatar.choices,
         id: data,
       });
     } else {
@@ -133,11 +136,15 @@ const auth=useContext(AuthContext)
         image: snapshot.val().image,
         postId: snapshot.val().PostId,
         splitId: snapshot.val().creator,
+        starCount: snapshot.val().starCount
       });
 
       // updateStarCount(postElement, data);
     });
+    
   }, [params.eid, params.pid]);
+
+
 
   return (
     <BreakpointProvider>
@@ -166,7 +173,8 @@ const auth=useContext(AuthContext)
           connections={viewSplit.connections}
           bio={viewSplit.bio}
           viewSplitId={viewSplit.id}
-          splitId={Location.state.userSplitId}
+          Choices={viewSplit.choices}
+          //splitId={Location.state.userSplitId}
         ></ProfileDetailModal>
         <div className="postdetailspage">
           <div className="postdetailspage__comments-container">
@@ -177,7 +185,7 @@ const auth=useContext(AuthContext)
               text={post.text}
               media={post.image}
               comments={"0"}
-              likes={"20"}
+              likes={post.starCount}
               eventId={params.eid}
               splitId={post.splitId}
               postId={post.postId}
@@ -186,20 +194,21 @@ const auth=useContext(AuthContext)
             ></Post>
             <div className="postdetailspage__comments">
               {comments.map((comment) => (
-                <Post
+                <Comment
                   splitName={comment.creatorName}
                   splitAvatar={comment.creatorAvatar}
                   date={comment.createdAt}
                   text={comment.text}
                   comments={0}
-                  likes={"0"}
+                  likes={comment.starCount}
                   media={comment.image}
                   key={comment.PostId}
                   postId={comment.PostId}
+                  parentPostId={params.pid}
                   eventId={params.eid}
                   splitId={comment.creator}
                   onProfileClick={onProfileClick}
-                ></Post>
+                ></Comment>
               ))}
               {comments.length === 0 && (
                 <p className="postdetailspage__nocomments"> No Comments yet</p>
