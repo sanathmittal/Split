@@ -24,3 +24,11 @@ html{
 .avatardropdown-category-avatar{
 cursor: pointer;
 }
+
+@media (max-width:33em){
+    .avatardropdown-category{
+        grid-template-columns: 1fr 1fr;
+        gap: 2.4rem;
+        padding: 2rem;
+    } 
+}

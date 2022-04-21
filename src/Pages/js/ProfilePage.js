@@ -107,13 +107,17 @@ console.log("sasa",auth.usersplits)
               <div className='profile-container'>
               <div className='profile-page__profile'>
                    {/* <img className='profile-img' src={profileimage}></img> */}
-                   <Avatar
+         <div className='profile-img'>
+         <Avatar
         style={{ border: "1px solid gray", margin:-7,height:125 ,width:125 }}
         alt="GeeksforGeeks Pic 1"
         src={auth.userdp}
 
       />
-                   <div className='profile-text'>
+         </div>
+            
+      <div className='profile__right'>
+      <div className='profile-text'>
                      <p className='profile-name'>{auth.username}</p>
                      <p className='profile-email'>Email: <span>{auth.useremail}</span></p>
                      <div className='profile-info'>
@@ -123,6 +127,8 @@ console.log("sasa",auth.usersplits)
                    </div>
                    <img className='settings-icon' onClick={()=>{setbackdrop(true) 
                   setProfileSettingsModal(true)}} src={settings}></img>
+      </div>
+                   
               </div>
               </div>
               {/* <img src={line} className='line' ></img> */}

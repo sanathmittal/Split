@@ -4,6 +4,7 @@ import RightNav from "../../Components/js/RightNav";
 import "../css/SplitPage.css";
 import girl1 from "../../assets/Dummyimages/Girl1.jpg";
 import arrowleft from "../../assets/websiteimages/arrowleft.svg";
+import  { Breakpoint, BreakpointProvider } from 'react-socks';
 import line from "../../assets/websiteimages/Line.svg";
 import ConnectionCard from "../../Reusable/js/ConnectionCard";
 import girl2 from "../../assets/Dummyimages/Girl2.jpg";
@@ -33,6 +34,7 @@ function SpltPage() {
 
 const[isLoading1,setISLoading1]=useState(false) 
 const [processLoading,setProcessLoading]=useState(false)
+const [modalLoading,setModalLoading]=useState(false)
 const [showConnections,setShowConnections]=useState(false)
  
   const [showBackdrop, setbackdrop] = useState(false);
@@ -65,6 +67,10 @@ const [showConnections,setShowConnections]=useState(false)
   const splitId = useParams();
   const Navigate = useNavigate();
 
+const onMenuClick=()=>{
+  setShowLeftNav(true)
+  setbackdrop(true)
+}
 
   useEffect(async () => {
      // console.log('sbsh')
@@ -128,6 +134,7 @@ const onRemoveClick=  (id,avatar,name,bio,uid)=>{
 }
 
 const onRemoveYesClick= async ()=>{
+  setModalLoading(true)
   await updateDoc(doc(db, "users", auth.uid,"Splits",splitId.sid), {
     connections: arrayRemove(deleteConnectionId),
   });
@@ -140,7 +147,9 @@ const onRemoveYesClick= async ()=>{
     userId:auth.uid
     }),
   });
+  setModalLoading(true)
   setbackdrop(false)
+
   setRemoveConfirmationModal(false)
 }
 
@@ -205,8 +214,12 @@ setProcessLoading(false)
 
 
   return (
+    <BreakpointProvider>x
     <div className="split__pagecontainer">
-      <LeftNav></LeftNav>
+        
+    <Breakpoint customQuery="(min-width: 1200px)">
+            <LeftNav ></LeftNav>
+            </Breakpoint>
       <div className="split-page">
         {/* <div className="split-page__topnav">
           <img src={arrowleft}></img>
@@ -220,6 +233,7 @@ setProcessLoading(false)
               setbackdrop(false);
               setSplitDeleteConfirmationModal(false);
               setRemoveConfirmationModal(false)
+              setShowLeftNav(false)
             }}
           ></Backdrop>
         )}
@@ -240,16 +254,17 @@ setProcessLoading(false)
             setRemoveConfirmationModal(false)
           }}
           onYesClick={onRemoveYesClick}
+          isLoading={modalLoading}
         ></RemoveConfirmationModal>
         <div className="split-page__profilecarrier">
-        <TopNav heading={`Split: ${split.name}`} onMenuClick={()=>{setShowLeftNav(true)}}></TopNav>
+        <TopNav heading={`Split: ${split.name}`} onMenuClick={onMenuClick}></TopNav>
           <div className="split-page__profile">
             <div className="split-page__profile-info">
               
               <div className="split-page__profile-info-left">
                 <img src={split.avatar}></img>
               </div>
-
+              <div className="split-page__profile-adjust">
               <div className="split-page__profile-info-middle">
                 <p className="split-page__profile-event">
                   Event: <span>{split.event}</span>
@@ -268,6 +283,9 @@ setProcessLoading(false)
                   Connections: <span>{split.connectionsNo}</span>
                 </p>
               </div>
+              </div>
+
+            
             </div>
 
             <div className="split-page__bio">
@@ -278,8 +296,8 @@ setProcessLoading(false)
         </div>
         <img src={line}></img>
         <div className="split-page__profile-bottom">
-        <p onClick={()=>{setShowConnections(true)}}>Connections</p>
-        <p onClick={()=>{setShowConnections(false)}}>Requests</p>
+        <p onClick={()=>{setShowConnections(true)}} className={showConnections && "splitpage_currently" }>Connections</p>
+        <p onClick={()=>{setShowConnections(false)}} className={!showConnections && "splitpage_currently" }>Requests</p>
         </div>
       
         <div className="split-page__connection-cards">
@@ -319,8 +337,12 @@ setProcessLoading(false)
               {isLoading1 && <Loading></Loading> }
         </div>
       </div>
+    
+      <Breakpoint customQuery="(min-width: 1200px)">
       <RightNav></RightNav>
+            </Breakpoint>
     </div>
+    </BreakpointProvider>
   );
 }
 

@@ -33,7 +33,7 @@ html{
 .createsplitpage__form{
     margin-top: 6.4rem;
     margin-left: 2.4rem;
-    margin-right: 1.6rem;
+    margin-right: 2rem;
 }
 .createsplitpage__form-avatar{
    display: flex;
@@ -179,4 +179,67 @@ margin-bottom: 4rem;
     .createsplitpage{
       padding-top: 15rem;
     }
+}
+
+@media (max-width: 27em) {
+  .createsplitpage__heading{
+    font-size: 2.8rem;
+  }
+  .createsplitpage__form{
+      margin-top: 5.6rem;
+  }
+ 
+ 
+  
+  
+  .createsplitpage__form-entry{
+   
+     gap: 3rem;
+     margin-bottom: 3rem;
+   
+  }
+  .createsplitpage__form-entry>p{
+     font-size: 2.4rem;
+     text-align: right;
+     max-width: 10rem;
+  }
+  // .createsplitpage__form-entry-input{
+    
+  //    gap: 1.2rem;
+  //    max-width: 50rem;
+    
+  // }
+  .createsplitpage__form-entry-input>p{
+    font-size: 1.5rem;
+  }
+  .createsplitpage__form-entry-input>input{
+    height: 3.8rem;
+    font-size: 1.6rem;
+  }
+  .createsplitpage__form-entry-input>textarea{
+    height: 12rem;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+  }
+
+
+  // .createsplitpage__form-checkbox{
+  //     gap: 5.2rem;
+     
+  // }
+  .createsplitpage__form-checkbox>p{
+    font-size: 1.6rem;
+  }
+  .createsplitpage__form-checkbox>input{
+    height: 5rem;
+    width: 2.5rem;
+    margin-top: 0.8rem;
+  }
+  
+  .createsplitpage__form>button{
+    margin-top: 5.4rem;
+    width: 14rem;
+    height: 4rem;
+    font-size: 2rem;
+  }
 }

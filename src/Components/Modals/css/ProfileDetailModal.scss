@@ -60,6 +60,18 @@ html{
     border-radius: 1rem;
     margin-top: 4rem;
 }
+.profiledetailmodal-top-button-requested{
+    font-size: 1.8rem;
+    background-color: #4952f8;
+    border: 1px solid #4952f8;
+    color: #ffffff;
+    width: 13rem;
+    height: 2.8rem;
+    box-shadow: (2px 2px 4px rgb(91, 112, 95));
+
+    border-radius: 1rem;
+    margin-top: 4rem;
+}
 
 .profiledetailmodal-bottomtext{
     // max-width: 55rem;
@@ -81,8 +93,47 @@ html{
     margin-left: -1.4rem;
 }
 .profiledetailmodal__choices>li{
+  
     font-size: 1.6rem;
     margin-bottom: 0.4rem;
     color: rgb(88, 88, 88);
     font-weight: 500;
+    
+}
+
+@media (max-width:37.5em){
+    .profiledetailmodal-top{
+        display: flex;
+        gap: 0rem;
+        flex-direction: column;
+    }
+    .profiledetailmodal__choices>li{
+    width: 30rem;
+        
+    }
+    .profiledetailmodal-top>p{
+      
+        margin-top: 2rem;
+    }
+    .profiledetailmodal-top-button-connected{
+        margin-top: 2rem;
+    }
+    .profiledetailmodal-top-button-notconnected{
+        margin-top: 2rem;
+    }
+    .profiledetailmodal-top-button-requested{
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width:28em){
+    // .profiledetailmodal-top{
+    //     display: flex;
+    //     gap: 0rem;
+    //     flex-direction: column;
+    // }
+    .profiledetailmodal__choices>li{
+    width: 22rem;
+        
+    }
 }

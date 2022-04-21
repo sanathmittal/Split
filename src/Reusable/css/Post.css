@@ -68,7 +68,6 @@ html {
   gap: 1.2rem;
   padding-left: 1.6rem;
   margin-top: 1.2rem;
-  padding-right: 6.4rem;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
 }
@@ -77,11 +76,13 @@ html {
   font-size: 1.8rem;
   max-width: 75rem;
   margin-bottom: 1.2rem;
+  padding-right: 6.4rem;
 }
 
 .post-content > img {
   max-width: 75rem;
   height: 40rem;
+  padding-right: 6.4rem;
 }
 
 .post__actions {
@@ -108,5 +109,15 @@ html {
 
 .post__action > p {
   font-size: 2.2rem;
+}
+
+@media (max-width: 40em) {
+  .post-content > p {
+    padding-right: 4rem;
+  }
+  .post-content > img {
+    height: 38rem;
+    padding-right: 5.8rem;
+  }
 }
 /*# sourceMappingURL=Post.css.map */

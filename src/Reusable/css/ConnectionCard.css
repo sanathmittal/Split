@@ -38,6 +38,7 @@ html {
 .connection-card__name {
   font-size: 2rem;
   margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 
 .connection-card__connectiondate {
@@ -45,7 +46,7 @@ html {
 }
 
 .connection-card > button {
-  margin-top: 0.4rem;
+  margin-top: 1.6rem;
   margin-right: 3.2rem;
   width: 8rem;
   height: 2.6rem;
@@ -57,5 +58,17 @@ html {
   -webkit-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
           box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+}
+
+@media (max-width: 31.25em) {
+  .connection-card__name {
+    font-size: 1.8rem;
+  }
+  .connection-card > button {
+    margin-right: 2.4rem;
+    width: 6rem;
+    height: 2.4rem;
+    font-size: 1.2rem;
+  }
 }
 /*# sourceMappingURL=ConnectionCard.css.map */

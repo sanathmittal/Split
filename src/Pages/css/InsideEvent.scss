@@ -51,3 +51,20 @@ html{
         padding-top: 17rem;
     }
 }
+
+@media(max-width:56.25em){
+    .insideeventpage>button{
+         right: 10%;
+    }  
+}
+
+@media(max-width:31.25em){
+    .insideeventpage>button{
+        width: 14rem;
+        height: 4rem;
+        font-size: 1.8rem;
+         bottom: 2.8rem;
+         right: 10%;
+        
+    }  
+}

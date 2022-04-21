@@ -4,13 +4,14 @@ html{
 .postmodal{
     background: #fff;
     position: absolute;
-    left: 25%;
+    left: 50%;
     top: 10%;
     z-index: 100;
-   
     padding: 2.8rem;
     border-radius: 3rem;
+    transform: translate(-50%);
 }
+
 .postmodal-text{
   display: flex;
   gap: 1.2rem;
@@ -19,13 +20,14 @@ html{
    height: 4rem;
    width: 4rem;
    border-radius: 50%;
+   
 }
 .postmodal-text-content{
   display: flex;
   flex-direction: column;
 }
 .postmodal-text-content>textarea{
-  width: 50rem;
+  max-width: 50rem;
   height: 10rem;
   // height:fit-content;
   // border: 1px solid #70ec70;
@@ -59,4 +61,23 @@ html{
   box-shadow: (2px 4px 4px #5fb15f);
   margin-top: 0.7rem;
   cursor: pointer;
+}
+
+@media (max-width:31.25em){
+  .postmodal{
+  
+    padding: 1.8rem;
+    padding-right: 0.2rem;
+    top: 20%;
+    padding-left: 1rem;  
+}
+.postmodal-actions>button{
+  width: 10rem;
+  font-size: 1.8rem;
+  height: 3rem;
+ 
+  margin-top: 0.7rem;
+  margin-right: 2.2rem;
+}
+  
 }

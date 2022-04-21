@@ -5,11 +5,13 @@ html {
 .postmodal {
   background: #fff;
   position: absolute;
-  left: 25%;
+  left: 50%;
   top: 10%;
   z-index: 100;
   padding: 2.8rem;
   border-radius: 3rem;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
 }
 
 .postmodal-text {
@@ -36,7 +38,7 @@ html {
 }
 
 .postmodal-text-content > textarea {
-  width: 50rem;
+  max-width: 50rem;
   height: 10rem;
   border: none;
   outline: none;
@@ -75,5 +77,21 @@ html {
           box-shadow: 2px 4px 4px #5fb15f;
   margin-top: 0.7rem;
   cursor: pointer;
+}
+
+@media (max-width: 31.25em) {
+  .postmodal {
+    padding: 1.8rem;
+    padding-right: 0.2rem;
+    top: 20%;
+    padding-left: 1rem;
+  }
+  .postmodal-actions > button {
+    width: 10rem;
+    font-size: 1.8rem;
+    height: 3rem;
+    margin-top: 0.7rem;
+    margin-right: 2.2rem;
+  }
 }
 /*# sourceMappingURL=PostModal.css.map */

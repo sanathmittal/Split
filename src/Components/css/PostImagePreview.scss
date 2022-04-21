@@ -1,9 +1,15 @@
 html{
     font-size: 62.5%;
 }
+
+.postimagepreview{
+  width: 60rem;
+  
+}
+
 .postimagepreview-img{
    height: 37rem;
-   width: 65rem;
+   width: 100%;
   
 }
 .postimagepreview{
@@ -17,4 +23,23 @@ html{
   height: 4rem;
   width: 4rem;
   cursor: pointer;
+}
+
+@media (max-width:56.25em){
+  .postimagepreview{
+    width: 45rem;
+  }
+
+}
+@media (max-width:37.5em ){
+  .postimagepreview{
+    width: 25rem;
+    margin-left: -3.4rem;
+  }
+ .postimagepreview-img{
+    height: 30rem;
+    width: 100%;
+   
+ }
+
 }

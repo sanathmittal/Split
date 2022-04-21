@@ -120,6 +120,9 @@ useEffect(async () => {
 
 
   useEffect(async () => {
+    if(auth.uid === null){
+      return
+    }
     const q = query(
       collection(db, "users", auth.uid, "Splits"),
       where("event", "==", params.eid)

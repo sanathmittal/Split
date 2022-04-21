@@ -8,11 +8,14 @@ import { AuthContext } from "../../../Context";
 function ProfileDetailModal(props) {
 const[connectionStatus,setConnectionStatus]=useState()
 const [connections,setConnections]=useState([])
+const [connectionRequests,setConectionRequests]=useState([])
 const [buttonStyle,setbuttonStyle]=useState("")
+const [buttonText,setbuttonText]=useState("")
     const auth=useContext(AuthContext)
 
 useEffect(()=>{
    let connectionsIds=[]
+  
 if(props.splitId){
   const unsub = onSnapshot(doc(db, "users",auth.uid,"Splits", props.splitId), (doc) => {
     // console.log("Current data: ", doc.data().connections);
@@ -20,16 +23,46 @@ if(props.splitId){
     if(doc.data().connections){
       // setConnections(doc.data().connections)
       doc.data().connections.forEach(element => {
-          connectionsIds.push(element.id)
+          connectionsIds.push(element.splitId)
+          
       });
     }
   setConnections(connectionsIds)
 
+  
  
 });
+
+
 }
 
 },[props.splitId])
+
+useEffect(()=>{
+
+  let connectionRequestsIds=[]
+if(props.viewSplitId){
+ const opposite = onSnapshot(doc(db, "users",props.userId,"Splits", props.viewSplitId), (doc) => {
+   // console.log("Current data: ", doc.data().connections);
+
+   if(doc.data().connectionRequests){
+     // setConnections(doc.data().connections)
+     doc.data().connectionRequests.forEach(element => {
+         connectionRequestsIds.push(element.splitId)
+         
+     });
+   }
+  
+setConectionRequests(connectionRequestsIds)
+
+ 
+
+});
+
+
+}
+
+},[props.viewSplitId])
 
 
 useEffect(()=>{
@@ -39,43 +72,45 @@ useEffect(()=>{
 // }
 
 
+
 if(props.viewSplitId === props.splitId){
     setConnectionStatus("self")
    
    return;
 }
 
+if(connectionRequests.includes(props.splitId)){
+  setConnectionStatus("requested")
+  return
+}
 // console.log(props.viewSplitId)
-else{
  
     setConnectionStatus(connections.includes(props.viewSplitId))
-}
 
 
+},[props.viewSplitId,connections,connectionRequests])
 
+// useEffect(()=>{
+//   console.log(connectionRequests)
+// },[connectionRequests])
 
-// const check =connections.some(item => props.viewSplitId === item);
-// if(connections.includes(props.viewSplitId)){
-//     // setConnectionStatus("connected")
-//     console.log(connections.includes(props.viewSplitId))
-// }
-// if(!connections.includes(props.viewSplitId)){
-//     setConnectionStatus("notconnected")
-// }
-// console.log(connectionStatus)
-
-
-},[props.viewSplitId,connections])
 
 useEffect(()=>{
 if(connectionStatus === "self"){
     setbuttonStyle("profiledetailmodal-top-button-self")
+    
+}
+if(connectionStatus === "requested"){
+  setbuttonStyle("profiledetailmodal-top-button-requested")
+  setbuttonText("Requested")
 }
 if(connectionStatus === true){
     setbuttonStyle("profiledetailmodal-top-button-connected")
+    setbuttonText("Connected")
 }
 if(connectionStatus ===false){
     setbuttonStyle("profiledetailmodal-top-button-notconnected")
+    setbuttonText("Connect")
 }
 // setConnectionStatus(true)
 
@@ -106,7 +141,7 @@ const onConnectClick= async ()=>{
       })
   });
   
-    // setConnectionStatus(true)
+     setConnectionStatus("requested")
 }
 
   return (
@@ -124,7 +159,7 @@ const onConnectClick= async ()=>{
           <p>
             Connections: <span>{props.connections}</span>
           </p>
-          <button className={buttonStyle} type="button" onClick={onConnectClick}>{connectionStatus ?"Connected" :"Connect"}</button>
+          <button className={buttonStyle} type="button" onClick={(connectionStatus === false) ? onConnectClick : ()=>{}}>{buttonText}</button>
         </div>
         <div className="profiledetailmodal-bottomtext">
           <p className="profiledetailmodal-bottomtext-name">{props.name}</p>

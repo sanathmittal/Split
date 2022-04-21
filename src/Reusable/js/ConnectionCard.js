@@ -12,7 +12,7 @@ const Navigate=useNavigate
             <img src={props.avatar}></img>
             <div className='connection-card__text'>
             <p className='connection-card__name'>{props.name}</p>
-            <p className='connection-card__connectiondate'>Connected on: {props.connectionDate}</p>
+            {/* <p className='connection-card__connectiondate'>Connected on: {props.connectionDate}</p> */}
             </div>
       
             </div>

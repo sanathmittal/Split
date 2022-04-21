@@ -48,10 +48,11 @@ html {
   border-bottom: 2px solid grey;
 }
 
-.profile-img {
-  width: 12.5rem;
-  height: 12.5rem;
-  border-radius: 50%;
+.profile__right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 4rem;
 }
 
 .profile-name {
@@ -179,6 +180,43 @@ html {
   .profile-page-splits {
     margin-left: 1.2rem;
     margin-right: 1.2rem;
+  }
+}
+
+@media (max-width: 31.5em) {
+  .profile-page__profile {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .profile__right {
+    gap: 2rem;
+  }
+  .profile-img {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .profile-name {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+  }
+  .profile-email {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .profile-email > span {
+    color: #5e5e5e;
+  }
+  .profile-info {
+    font-size: 1.8rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 2.4rem;
   }
 }
 /*# sourceMappingURL=ProfilePage.css.map */

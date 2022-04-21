@@ -5,7 +5,8 @@ html{
 .commentmodal{
     background: #fff;
     position: absolute;
-    left: 25%;
+    left: 50%;
+    transform: translate(-50%);
     top: 10%;
     z-index: 100;
    
@@ -31,7 +32,7 @@ html{
   flex-direction: column;
 }
 .commentmodal-text-content>textarea{
-  width: 50rem;
+ width: 40rem;
   height: 10rem;
   // height:fit-content;
   // border: 1px solid #70ec70;
@@ -65,4 +66,40 @@ html{
   box-shadow: (2px 4px 4px #5fb15f);
   margin-top: 0.7rem;
   cursor: pointer;
+}
+
+@media (max-width:57em){
+
+  .commentmodal-text-content>textarea{
+    width: 30rem;
+  }
+
+}
+
+
+@media (max-width:31.25em){
+  .commentmodal-text-content>textarea{
+    width: 24rem;
+  }
+  .commentmodal{
+  
+    padding: 1.8rem;
+    padding-right: 0.2rem;
+    top: 20%;
+    padding-left: 1rem;  
+}
+.commentmodal-actions>button{
+  width: 10rem;
+  font-size: 1.8rem;
+  height: 3rem;
+ 
+  margin-top: 0.7rem;
+  margin-right: 2.2rem;
+}
+  
+.commentmodal>p{
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+}
+
 }

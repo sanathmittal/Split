@@ -25,26 +25,6 @@ html {
   /* Optional: just make scrollbar invisible */
 }
 
-.split-page__topnav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: rgba(255, 255, 255, 0.95);
-  position: fixed;
-  top: 0;
-  left: 16.66%;
-  right: 25%;
-  padding: 1.2rem;
-}
-
-.split-page__topnav > img {
-  margin-right: 2.4rem;
-}
-
-.split-page__topnav > p {
-  font-size: 2.4rem;
-}
-
 .split-page__profile {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -77,6 +57,13 @@ html {
   display: -ms-flexbox;
   display: flex;
   gap: 3.2rem;
+}
+
+.split-page__profile-adjust {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 4rem;
 }
 
 .split-page__profile-info-left {
@@ -171,9 +158,86 @@ html {
   font-size: 1.8rem;
 }
 
+.splitpage_currently {
+  color: #04d804;
+}
+
 .split-page__connection-cards {
   margin-top: 2.4rem;
   padding-left: 7rem;
   padding-right: 7rem;
+}
+
+@media (max-width: 75em) {
+  .split__pagecontainer {
+    display: block;
+  }
+}
+
+@media (max-width: 47.5em) {
+  .split-page__profile-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .split-page__profile-adjust {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .split-page__profile-info-right {
+    margin-top: 0;
+  }
+  .split-page__profile-info-middle {
+    margin-top: 0;
+  }
+  .split-page__profile-info-left {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 31.5em) {
+  .split-page__name {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+  .split-page__biography {
+    font-size: 1.4rem;
+    max-width: 55rem;
+  }
+  .split-page__profile-info {
+    gap: 2.8rem;
+  }
+  .split-page__profile-adjust {
+    gap: 3rem;
+  }
+  .split-page__profile-info-left > img {
+    height: 14.5rem;
+    width: 14.5rem;
+    border-radius: 50%;
+  }
+  .split-page__profile-info-middle {
+    margin-left: 1.2rem;
+  }
+  .split-page__profile-info-middle > p {
+    font-size: 1.5rem;
+  }
+  .split-page__profile-info-right > p {
+    font-size: 1.5rem;
+  }
+  .split-page__profile-info-middle > button {
+    height: 2.6rem;
+    width: 10rem;
+    font-size: 1.6rem;
+    margin-top: 1.4rem;
+  }
+  .split-page__connection-cards {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
 }
 /*# sourceMappingURL=SplitPage.css.map */

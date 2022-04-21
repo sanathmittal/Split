@@ -237,7 +237,8 @@ function ChatPage() {
                 onClick={() => {
                   setshowSplitDropdown((prev) => !prev);
                 }}
-                className="chatpage__topnav-dropdownicon"
+
+                // className="chatpage__topnav-dropdownicon"
               ></img>
               {showSplitDropdown && (
                 <div className="chatpage__splitdropdown">
@@ -279,16 +280,16 @@ function ChatPage() {
               <ChatCard
                 name={connection.name}
                 avatar={connection.avatar}
-                key={connection.id}
+                key={connection.splitId}
                 onClick={() => {
                   setcurrentConnection({
                     name: connection.name,
                     avatar: connection.avatar,
-                    id: connection.id,
+                    id: connection.splitId,
                   });
                 }}
                 currentConnectionid={currentConnection.id}
-                id={connection.id}
+                id={connection.splitId}
               ></ChatCard>
             ))}
             {/* <button onClick={()=>{console.log(messages,currentConnection.name,currentSplit.name,result)}}>Messages</button> */}
@@ -318,7 +319,7 @@ function ChatPage() {
 
           <div ref={messagesEndRef} />
         </div>
-        <ImagePreview></ImagePreview> 
+        {/* <ImagePreview></ImagePreview>  */}
 
         <ChatForm
           currentSplitId={currentSplit.id}

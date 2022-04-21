@@ -74,6 +74,19 @@ html {
   margin-top: 4rem;
 }
 
+.profiledetailmodal-top-button-requested {
+  font-size: 1.8rem;
+  background-color: #4952f8;
+  border: 1px solid #4952f8;
+  color: #ffffff;
+  width: 13rem;
+  height: 2.8rem;
+  -webkit-box-shadow: 2px 2px 4px #5b705f;
+          box-shadow: 2px 2px 4px #5b705f;
+  border-radius: 1rem;
+  margin-top: 4rem;
+}
+
 .profiledetailmodal-bottomtext {
   margin-top: 2rem;
   margin-left: 1.2rem;
@@ -100,5 +113,39 @@ html {
   margin-bottom: 0.4rem;
   color: #585858;
   font-weight: 500;
+}
+
+@media (max-width: 37.5em) {
+  .profiledetailmodal-top {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 0rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .profiledetailmodal__choices > li {
+    width: 30rem;
+  }
+  .profiledetailmodal-top > p {
+    margin-top: 2rem;
+  }
+  .profiledetailmodal-top-button-connected {
+    margin-top: 2rem;
+  }
+  .profiledetailmodal-top-button-notconnected {
+    margin-top: 2rem;
+  }
+  .profiledetailmodal-top-button-requested {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 28em) {
+  .profiledetailmodal__choices > li {
+    width: 22rem;
+  }
 }
 /*# sourceMappingURL=ProfileDetailModal.css.map */
