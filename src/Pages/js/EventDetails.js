@@ -29,7 +29,7 @@ function EventDetails() {
   const eventId = useParams();
 
   const onjoinClick = () => {
-    Navigate(`/${eventId.eid}/createsplit` ,{state:{Choices:location.state.Choices}});
+    Navigate(`/${eventId.eid}/createsplit/${event.name}` ,{state:{Choices:location.state.Choices}});
   };
   const onengageClick=()=>{
     Navigate(`/event/${eventId.eid}`)

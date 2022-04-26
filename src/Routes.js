@@ -21,10 +21,9 @@ import ChatPage from "./Pages/js/ChatPage";
 import PersonalRoute from "./Personal_Routes";
 import ErrorPage from "./Pages/js/ErrorPage";
 import ContactUs from "./Pages/js/ContactUs";
+import EventRoute from "./Event_Route";
 
   function Routes() {
-
-    
 
 
       return (
@@ -36,14 +35,15 @@ import ContactUs from "./Pages/js/ContactUs";
        {/* <Route path="/home" exact element={<HomePage/>}/> */}
        <Route  path="/home"  element={ <PrivateRoute>  <HomePage/>  </PrivateRoute> }/>
         <Route path="/profile/:uid" exact element={<PersonalRoute><ProfilePage/></PersonalRoute>}/>
-        <Route path="/split/:sid" exact element={<SplitPage/>}/>
+        <Route path="/split/:sid" exact element={<SplitPage/> }/>
         <Route path="/eventdetails/:eid" exact element={<PrivateRoute> <EventDetails/></PrivateRoute>}/>
-        <Route path="/:eid/createsplit" exact element={<PrivateRoute><CreateSplit/></PrivateRoute>}/>
-        <Route path="/event/:eid" exact element={<InsideEvent/>}/>
-        <Route path="/:eid/post/:pid" exact element={<PostDetails/>}/>
+        <Route path="/:eid/createsplit/:ename" exact element={<PrivateRoute><CreateSplit/></PrivateRoute>}/>
+        <Route path="/event/:eid" exact element={<EventRoute><InsideEvent/></EventRoute>}/>
+        <Route path="/:eid/post/:pid" exact element={ <EventRoute><PostDetails/></EventRoute>}/>
         <Route path="/:uid/chat" exact element={<PersonalRoute><ChatPage/></PersonalRoute>}/>
         {/* { auth.user? null : <Navigate from="/home" to="/" /> } */}
         <Route path="/error" exact element={<ErrorPage></ErrorPage>}/>
+
         <Route path="/contactus" exact element={<PrivateRoute><ContactUs></ContactUs> </PrivateRoute>}/>
         </Ways>
         </BrowserRouter>

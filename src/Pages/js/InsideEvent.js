@@ -38,6 +38,7 @@ function InsideEvent() {
   const [showProfileDetail, setshowProfileDetail] = useState(false);
   const [backdrop, setBackdrop] = useState(false);
   const [splitid, setsplitid] = useState("");
+  const [isLiked,setIsLiked]=useState(false)
   const [recentPostId,setRecentPostId]=useState("")
   const [split, setSplit] = useState({
     name: "",
@@ -242,9 +243,6 @@ const [priorityPosts,setPriorityPosts]=useState([])
 
 
 
-
-
-
   return (
     <BreakpointProvider>
       <div className="insideeventpage__container">
@@ -325,6 +323,7 @@ const [priorityPosts,setPriorityPosts]=useState([])
                 onProfileClick={onProfileClick}
                 commenticonClick={commenticonClick}
                 onRecentPostId={onRecentPostId}
+                stars={post.stars}
               ></Post>
             ))}
              {posts.map((post) => (
@@ -346,6 +345,7 @@ const [priorityPosts,setPriorityPosts]=useState([])
                 onProfileClick={onProfileClick}
                 commenticonClick={commenticonClick}
                 onRecentPostId={onRecentPostId}
+                stars={post.stars}
               ></Post>
             ))}
           </div>

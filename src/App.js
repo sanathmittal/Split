@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc,collection,getDocs } from "firebase/firestore";
 import { Navigate ,useNavigate} from "react-router-dom";
 
+
 function App() {
 
   const [user, setuser] = useState(null)
@@ -18,7 +19,7 @@ function App() {
   const [userdp, setuserdp] = useState(null)
   const [userconnections, setuserconnections] = useState(null)
    const [userSplits,setuserSplits]=useState([])
-  
+  const [userEvents,setUserEvents]=useState([])
 // const navigate = useNavigate()
 
    useEffect(()=>{
@@ -60,8 +61,8 @@ function App() {
         setusername(docSnap.data().name)
         setuseremail(docSnap.data().email)
         setuserdp(docSnap.data().profileDp)
-   
-       
+          setUserEvents(docSnap.data().Events)
+     
            
       } else {
         // doc.data() will be undefined in this case
@@ -75,7 +76,9 @@ function App() {
     }
   },[user])
 
-
+useEffect(()=>{
+  window.localStorage.setItem("splitUserEvents",userEvents)
+},[userEvents])
 
 
 

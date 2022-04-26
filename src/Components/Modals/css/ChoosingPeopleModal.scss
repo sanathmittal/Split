@@ -34,6 +34,10 @@ grid-template-columns: 3fr 4fr;
   height: 44rem;
   padding: 3.2rem 1rem;
 }
+.choosingmodal-choices::-webkit-scrollbar {
+  //  width: 4px;  /* Remove scrollbar space */
+  // background: rgb(165, 165, 165);  /* Optional: just make scrollbar invisible */
+}
 .choosingmodal-choices-entry{
     margin-bottom: 1.2rem;
     display: flex;
@@ -133,4 +137,123 @@ padding: 0.8rem;
    color: grey;
 }
 
+@media (max-width: 46.5em){
+  .choosingmodal{
+   width: 50rem;
+  }
 
+    .choosingmodal-select{
+        display: grid;
+        grid-template-columns: 1fr;
+        }
+
+        .choosingmodal-choices{
+            border-right: 0.5px solid rgb(8, 8, 8);
+            height: 13rem;
+            padding: 3.2rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+            overflow-y: scroll;
+          }
+          .choosingmodal-choices-entry{
+              margin-bottom: 1.2rem;
+              display: flex;
+              gap: 1.2rem;
+          }
+          .choosingmodal-choices-entry>input{
+            height: 2.5rem;
+            width: 2.5rem;
+          //   margin-right: 1.2rem;
+            border-radius: 3px;
+          }
+          .choosingmodal-choices-entry>label{
+              font-size: 1.7rem;
+          }
+          .choosingmodal-people{
+              border-top: 1px solid grey;
+              padding-top: 0.8rem;
+            height: 20rem;
+            overflow-y: scroll;
+         }
+}
+
+
+@media (max-width: 37.5em){
+    .choosingmodal{
+        width: 31rem;
+       }
+    .choosingmodal-choices{
+       height: 13rem;
+        padding: 2.4rem 1rem;
+        display: block;
+       // grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+     
+       
+      }
+      .choosingmodal-heading{
+        padding: 0.8rem 2rem;
+    }
+    .choosingmodal-heading-main{
+    font-size: 2rem;
+    }
+    .choosingmodal-heading-sub{
+     font-size: 1.5rem;
+    }
+    .choosingmodal-choices-entry{
+        margin-bottom: 1rem;
+        gap: 1rem;
+    }
+    .choosingmodal-choices-entry>label{
+        font-size: 1.6rem;
+        
+    }
+    
+    .choosingmodal-people-search>input{
+     
+      width: 22rem;
+      height: 3rem;
+      border-radius: 1rem;
+      outline: none;
+      padding-left: 0.6rem;
+      margin-right: 0.2rem;
+    }
+    .choosingmodal-people-search>button{
+     
+        font-size: 1.6rem;
+        height: 3rem;
+       // margin-left: 1rem;
+        width: 6rem;
+        margin-top: 0.2rem;
+      
+    }
+    .choosingmodal-people-entry{
+   
+    gap: 1.4rem;
+    padding: 0.6rem;
+    }
+    .choosingmodal-people>p{
+        font-size: 1.8rem;
+        
+        margin-top: 0.8rem;
+    }
+   
+    .choosingmodal-people-entry-name{
+        font-size: 1.6rem;
+    }
+    .choosingmodal-button{
+     
+        right: 2rem;
+        width: 9rem;
+        height: 3.2rem;
+        font-size: 2rem;
+       
+    }
+    // .choosingmodal-people-entry-posts{
+    //     font-size: 1.8rem;
+    //    color: grey;
+    // }
+    
+}

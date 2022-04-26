@@ -23,6 +23,12 @@ html {
   width: 4em;
 }
 
+.topnav__chat {
+  height: 3.2rem;
+  width: 3.2em;
+  margin-top: 0.4rem;
+}
+
 .topnav__avatar {
   height: 4rem;
   width: 4rem;

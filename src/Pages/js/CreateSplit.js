@@ -60,7 +60,7 @@ function CreateSplit(props) {
       }
     })
    setChoices(choicesArray)
- // console.log(choicesArray)
+  // console.log(choicesArray)
   }
 
   const auth = useContext(AuthContext);
@@ -81,6 +81,10 @@ function CreateSplit(props) {
 //   //    console.log("error")
 //   //  }
 // }
+useEffect(()=>{
+console.log("thus",choices)
+},[choices])
+
   const onFormSubmit = async (e) => {
 
     e.preventDefault();
@@ -101,7 +105,7 @@ function CreateSplit(props) {
       setError("you must agree to user guidelines");
       return;
     }
-    try {
+  
       const docRef = await addDoc(
         collection(db, "Events", eventId.eid, "Participants"),
         {
@@ -113,26 +117,34 @@ function CreateSplit(props) {
           choices: choices,
         }
       );
-
+      
+console.log(docRef.id,"this is its")
       await setDoc(doc(db, "users", auth.uid, "Splits", docRef.id), {
         name: name,
         bio: bio,
         event: eventId.eid,
         eventName: eventId.ename,
         avatar: avatar,
-        CreatedOn: new Date(),
+        // CreatedOn: new Date(),
         connections: [],
+        connectionRequests:[],
         choices: choices,
       });
+      // await setDoc(doc(db, "cities", "LA"), {
+      //   name: "Los Angeles",
+      //   state: "CA",
+      //   country: "USA"
+      // });
+
+      console.log("after this")
       const washingtonRef = doc(db, "users", auth.uid);
 
       await updateDoc(washingtonRef, {
         Events: arrayUnion(eventId.eid),
+
       });
       console.log("Document written with ID: ", docRef.id);
-    } catch (error) {
-      setError("error while creating Split");
-    }
+   
 
     setName("");
     setBio("");

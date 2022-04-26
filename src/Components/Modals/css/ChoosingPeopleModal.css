@@ -162,4 +162,108 @@ html {
   font-size: 1.8rem;
   color: grey;
 }
+
+@media (max-width: 46.5em) {
+  .choosingmodal {
+    width: 50rem;
+  }
+  .choosingmodal-select {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  .choosingmodal-choices {
+    border-right: 0.5px solid #080808;
+    height: 13rem;
+    padding: 3.2rem 1rem;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
+  }
+  .choosingmodal-choices-entry {
+    margin-bottom: 1.2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 1.2rem;
+  }
+  .choosingmodal-choices-entry > input {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 3px;
+  }
+  .choosingmodal-choices-entry > label {
+    font-size: 1.7rem;
+  }
+  .choosingmodal-people {
+    border-top: 1px solid grey;
+    padding-top: 0.8rem;
+    height: 20rem;
+    overflow-y: scroll;
+  }
+}
+
+@media (max-width: 37.5em) {
+  .choosingmodal {
+    width: 31rem;
+  }
+  .choosingmodal-choices {
+    height: 13rem;
+    padding: 2.4rem 1rem;
+    display: block;
+    gap: 1.2rem;
+  }
+  .choosingmodal-heading {
+    padding: 0.8rem 2rem;
+  }
+  .choosingmodal-heading-main {
+    font-size: 2rem;
+  }
+  .choosingmodal-heading-sub {
+    font-size: 1.5rem;
+  }
+  .choosingmodal-choices-entry {
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+  .choosingmodal-choices-entry > label {
+    font-size: 1.6rem;
+  }
+  .choosingmodal-people-search > input {
+    width: 22rem;
+    height: 3rem;
+    border-radius: 1rem;
+    outline: none;
+    padding-left: 0.6rem;
+    margin-right: 0.2rem;
+  }
+  .choosingmodal-people-search > button {
+    font-size: 1.6rem;
+    height: 3rem;
+    width: 6rem;
+    margin-top: 0.2rem;
+  }
+  .choosingmodal-people-entry {
+    gap: 1.4rem;
+    padding: 0.6rem;
+  }
+  .choosingmodal-people > p {
+    font-size: 1.8rem;
+    margin-top: 0.8rem;
+  }
+  .choosingmodal-people-entry-name {
+    font-size: 1.6rem;
+  }
+  .choosingmodal-button {
+    right: 2rem;
+    width: 9rem;
+    height: 3.2rem;
+    font-size: 2rem;
+  }
+}
 /*# sourceMappingURL=ChoosingPeopleModal.css.map */

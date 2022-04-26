@@ -160,6 +160,7 @@ function ChatPage() {
           return;
         }
         setMessages(dataArray);
+        console.log(dataArray)
         // updateStarCount(postElement, data);
       });
     }
@@ -274,7 +275,7 @@ function ChatPage() {
           <img src={currentConnection.avatar}></img>
           <p>{currentConnection.name}</p>
         </div>
-        <Breakpoint customQuery="(min-width: 1200px)">
+        {/* <Breakpoint customQuery="(min-width: 1200px)"> */}
           <div className="chatpage__connections">
             {currentSplit.connections.map((connection) => (
               <ChatCard
@@ -300,7 +301,7 @@ function ChatPage() {
               </p>
             )}
           </div>
-        </Breakpoint>
+        {/* </Breakpoint> */}
         <LeftNavMobile show={showLeftNav}></LeftNavMobile>
         <div ref={messageDivRef} className="chatarea">
           {messages.map((message) => (
@@ -311,11 +312,11 @@ function ChatPage() {
               messageId={message.messageId}
               currentSplitId={currentSplit.id}
             >
-              {message.text}{" "}
+              {message.text}
             </Message>
         
           ))}  
-            <Image src={girl4} ></Image>
+            {/* <Image src={girl4} ></Image> */}
 
           <div ref={messagesEndRef} />
         </div>

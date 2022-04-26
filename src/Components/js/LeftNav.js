@@ -21,6 +21,7 @@ const onLogoutClick=()=>{
       window.localStorage.removeItem("SplitIsAuth")
       window.localStorage.removeItem("currentChatConnectionId")
       window.localStorage.removeItem("currentChatSplitId")
+      window.localStorage.removeItem("splitUserEvents")
       Navigate('/')
 }
 

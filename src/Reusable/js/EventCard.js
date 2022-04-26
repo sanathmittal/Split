@@ -31,7 +31,7 @@ const onDetailsClick=()=>{
 } 
 
 const onjoinClick=()=>{
-    Navigate(`/${props.eventId}/createsplit`,{state:{Choices:props.Choices}})
+    Navigate(`/${props.eventId}/createsplit/${props.heading}`,{state:{Choices:props.Choices}})
 }
 const onengageClick=()=>{
     Navigate(`/event/${props.eventId}`)

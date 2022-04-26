@@ -32,6 +32,14 @@ function PostDetails() {
   const [commentingonpostId ,setCommentingOnPostId]=useState("")
   const [postCreatorName,setPostCreatorName]=useState("")
   const [showProfileDetail, setshowProfileDetail] = useState(false);
+  const [splitid, setsplitid] = useState("");
+  const [recentPostId,setRecentPostId]=useState("")
+  const [split, setSplit] = useState({
+    name: "",
+    avatar: "",
+    bio:"",
+    id:"",
+  });
   const [viewSplit, setViewSplit] = useState({
     name: "",
     bio: "",
@@ -39,6 +47,7 @@ function PostDetails() {
     connections: "",
     choices:[],
     id: "",
+    userId:"",
   });
   const [comments, setComments] = useState([]);
 
@@ -77,6 +86,58 @@ const auth=useContext(AuthContext)
         setshowBackdrop(true)
       }
 
+
+
+
+
+      useEffect(async () => {
+        if(auth.uid === null){
+          return
+        }
+        const q = query(
+          collection(db, "users", auth.uid, "Splits"),
+          where("event", "==", params.eid)
+        );
+    
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          // console.log(doc.id)
+          // doc.data() is never undefined for query doc snapshots
+          setsplitid(doc.id);
+          // console.log(doc.id, " => ", doc.data());
+        });
+      }, [auth.uid, params.eid, splitid]);
+    
+      useEffect(async () => {
+        if (splitid === "") {
+          return;
+        }
+    
+        const docRef = doc(db, "users", auth.uid, "Splits", splitid);
+        const docSnap = await getDoc(docRef);
+    
+        if (docSnap.exists()) {
+          setSplit({
+            name: docSnap.data().name,
+            avatar: docSnap.data().avatar,
+            bio:docSnap.data().bio,
+            id:splitid
+          });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }, [splitid]);
+
+
+
+
+
+
+
+
+
+
   const onProfileClick = async (data) => {
     const docRef = doc(db, "Events", params.eid, "Participants", data);
     const docSnap = await getDoc(docRef);
@@ -87,8 +148,9 @@ const auth=useContext(AuthContext)
         avatar: docSnap.data().avatar,
         bio: docSnap.data().bio,
         connections: "0",
-        choices:docSnap.data().avatar.choices,
+        choices:docSnap.data().choices,
         id: data,
+        userId:docSnap.data().user
       });
     } else {
       // doc.data() will be undefined in this case
@@ -174,7 +236,10 @@ const auth=useContext(AuthContext)
           bio={viewSplit.bio}
           viewSplitId={viewSplit.id}
           Choices={viewSplit.choices}
-          //splitId={Location.state.userSplitId}
+          
+           userId={viewSplit.userId}
+           selfUser={split}
+           splitId={splitid}
         ></ProfileDetailModal>
         <div className="postdetailspage">
           <div className="postdetailspage__comments-container">
@@ -191,6 +256,7 @@ const auth=useContext(AuthContext)
               postId={post.postId}
               onProfileClick={onProfileClick}
               commenticonClick={commenticonClick}
+              stars={post.stars}
             ></Post>
             <div className="postdetailspage__comments">
               {comments.map((comment) => (
@@ -208,6 +274,7 @@ const auth=useContext(AuthContext)
                   eventId={params.eid}
                   splitId={comment.creator}
                   onProfileClick={onProfileClick}
+                  stars={comment.stars}
                 ></Comment>
               ))}
               {comments.length === 0 && (

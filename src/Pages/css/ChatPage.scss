@@ -5,6 +5,7 @@ html{
     display: grid;
     grid-template-columns: 1fr 2fr ;
     overflow-y: hidden;
+    
   // height: 100vh;
 }
 .chatpage__topnav{
@@ -151,3 +152,13 @@ width: 4rem;
         grid-template-columns: 1fr;
     }
 }
+
+// @media (max-width: 51em) {
+//     // .chatpage__container{
+//     //     display: grid;
+//     //     grid-template-columns: 1fr 1fr ;
+//     //     overflow-y: hidden;
+        
+//     //   // height: 100vh;
+//     // }
+// }

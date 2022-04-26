@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import "../css/Post.css"
 import like from "../../assets/websiteimages/like.svg"
+import liked from "../../assets/websiteimages/liked.svg"
 import comment from "../../assets/websiteimages/comment.svg"
 import {  ref, runTransaction, set ,} from "firebase/database";
 import {database} from "../../Firebase"
@@ -10,8 +11,22 @@ function Post(props) {
      const [showmedia, setshowmedia] = useState(false)
     const[display,setDisplay]=useState("none")
     const [likes,setLikes]=useState()
-
+    const [isLiked,setIsLiked]=useState(false)
     const Navigate=useNavigate()
+
+useEffect(()=>{
+  if(!props.stars){
+    return
+  }
+  if(props.stars[props.userSplitId] ){
+    setIsLiked(true)
+    
+  }
+  if(!props.stars[props.userSplitId] ){
+    setIsLiked(false)
+  }
+  console.log(props.stars)
+},[props.postId])
 
 useEffect(()=>{
  
@@ -42,6 +57,7 @@ function toggleStar () {
         post.starCount--;
         post.nCount++;
         post.stars[props.userSplitId] = null;
+        setIsLiked(false)
       } else {
         if (!post.stars) {
           console.log("running")
@@ -52,6 +68,7 @@ function toggleStar () {
         post.starCount++;
         post.nCount--;
         post.stars[props.userSplitId] = true;
+        setIsLiked(true)
         //post.stars.push(props.splitId) 
       }
       set(postRef,post)
@@ -80,7 +97,7 @@ function toggleStar () {
                           <p>{props.comments}</p>
                         </div>
                         <div className='post__action'>
-                          <img onClick={toggleStar} className="post__likeicon"  src={like}></img>
+                          <img onClick={toggleStar} className="post__likeicon"  src={isLiked ? liked :like}></img>
                           <p >{props.likes}</p>
                         </div>
                  </div>

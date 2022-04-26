@@ -59,7 +59,7 @@ const [showConnections,setShowConnections]=useState(false)
     connectionRequests:[],
     connectionsNo: "",
   });
-  const [connections, setConnections] = useState([
+  const [connectionIds, setConnectionIds] = useState([
    
   ]);
   const auth = useContext(AuthContext);
@@ -78,10 +78,15 @@ const onMenuClick=()=>{
 // const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
 //     console.log("Current data: ", doc.data());
 // });
+if(auth.uid === null){
+  return
+}
+
     setISLoading1(true)
     const docRef = doc(db, "users", auth.uid, "Splits", splitId.sid);
    // const docSnap = await getDoc(docRef);
    const unsub = onSnapshot(docRef, (docSnap) => {
+
     setSplit({
       name: docSnap.data().name,
       bio: docSnap.data().bio,
@@ -91,19 +96,28 @@ const onMenuClick=()=>{
       connections: docSnap.data().connections,
       connectionRequests:docSnap.data().connectionRequests,
       connectionsNo: docSnap.data().connections.length,
-    });
-  
+    });  
 });
     setISLoading1(false)
-  
-   
-  
-  
   }, [splitId.sid, auth.uid]);
  
- 
+ useEffect(()=>{
+   if(split.connections === []){
+     return;
+   }
+  const Connections=[]
+   split.connections.forEach((c)=>{
+     Connections.push({splitId:c.splitId,userId:c.userId})
+   })
+   setConnectionIds(Connections)
+
+ },[split.connections])
+
+   
+
 
   const onYesClick = async () => {
+    setModalLoading(true)
     try {
       await deleteDoc(doc(db, "users", auth.uid, "Splits", splitId.sid));
       await deleteDoc(
@@ -112,11 +126,27 @@ const onMenuClick=()=>{
       await updateDoc(doc(db, "users", auth.uid), {
         Events: arrayRemove(split.eventId),
       });
+   connectionIds.forEach(async (c)=>{
+    const oppositeRef = doc(db, "users",c.userId , "Splits", c.splitId);
+
+    
+
+    await updateDoc(oppositeRef, {
+        connections: arrayRemove({
+          avatar:split.avatar,
+          name:split.name,
+          bio:split.bio,
+          splitId:splitId.sid,
+          userId:auth.uid
+        })
+    });
+   })
+
     } catch (error) {
       console.log("error in deleting", error);
     }
 
-    console.log("deleted");
+    setModalLoading(false)
     Navigate(`/profile/${auth.uid}`);
     //    setbackdrop(false)
     //    setSplitDeleteConfirmationModal(false)
@@ -213,6 +243,19 @@ setProcessLoading(false)
 }
 
 
+// <ProfileDetailModal
+// selfUser={split}
+// show={showProfileDetail}
+// name={viewSplit.name}
+// avatar={viewSplit.avatar}
+// connections={viewSplit.connections}
+// bio={viewSplit.bio}
+// viewSplitId={viewSplit.id}
+// userId={viewSplit.userId}
+// splitId={splitid}
+// Choices={viewSplit.Choices}
+// ></ProfileDetailModal>
+
   return (
     <BreakpointProvider>x
     <div className="split__pagecontainer">
@@ -241,6 +284,7 @@ setProcessLoading(false)
          {processLoading && <Loading></Loading>}
         <SplitDeleteConfirmationModal
           show={splitDeleteConfirmationModal}
+          isLoading={modalLoading}
           onNoClick={() => {
             setSplitDeleteConfirmationModal(false);
             setbackdrop(false);

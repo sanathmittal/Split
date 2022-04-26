@@ -5,6 +5,7 @@ import RightNav from "../../Components/js/RightNav";
 import LeftNav from "../../Components/js/LeftNav";
 import EventCard from "../../Reusable/js/EventCard";
 import eventimage from "../../assets/Dummyimages/eventimage.jpg";
+import chaticon from "../../assets/websiteimages/chaticon.svg"
 import menu from "../../assets/websiteimages/menu.svg";
 import avatar from "../../assets/Dummyimages/profileimage.jpg";
 import LeftNavMobile from "../../Components/js/LeftNavMobile";
@@ -48,7 +49,7 @@ function HomePage() {
 try {
   const q = collection(db, "Events");
   const querySnapshot = await getDocs(q);
-  console.log(querySnapshot)
+//  console.log(querySnapshot)
 
 
   querySnapshot.forEach((doc) => {
@@ -125,7 +126,14 @@ if (auth.uid === "" || !auth.uid){
                   setShowleftnav(true);
                 }}
               ></img>
-              <img className="homepage__topnav-avatar" src={avatar}></img>
+              <img className="homepage__topnav-avatar" src={auth.userdp} onClick={()=>{navigate(`/profile/${auth.uid}`)}} ></img>
+              <img
+                className="homepage__menu"
+                src={chaticon}
+                onClick={() => {
+                  navigate(`/${auth.uid}/chat`)
+                }}
+              ></img>
             </div>
             <div className="homepage__topnav-links">
               <p className="allevents">All Events</p>
