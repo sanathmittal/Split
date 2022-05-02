@@ -4,6 +4,7 @@ import contactus from "../../assets/websiteimages/contactus.svg"
 import help from "../../assets/websiteimages/help.svg"
 import resources from "../../assets/websiteimages/resources.svg"
 import aboutus from "../../assets/websiteimages/aboutus.svg"
+import logout from "../../assets/websiteimages/logout.svg"
 import {auth} from "../../Firebase"
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +49,7 @@ const onLogoutClick=()=>{
                 <p className='option-des'>Help</p>
             </div>
             <div id="help" className='leftnav-option'>
-                <img src={help} />
+                <img id="logout" src={logout} />
                 <p onClick={onLogoutClick} className='option-des'>Logout</p>
             </div>
             </div>

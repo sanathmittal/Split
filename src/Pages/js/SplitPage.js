@@ -18,7 +18,8 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  onSnapshot
+  onSnapshot,
+  increment
 } from "firebase/firestore";
 import { db } from "../../Firebase";
 import { AuthContext } from "../../Context";
@@ -35,7 +36,7 @@ function SpltPage() {
 const[isLoading1,setISLoading1]=useState(false) 
 const [processLoading,setProcessLoading]=useState(false)
 const [modalLoading,setModalLoading]=useState(false)
-const [showConnections,setShowConnections]=useState(false)
+const [showConnections,setShowConnections]=useState(true)
  
   const [showBackdrop, setbackdrop] = useState(false);
   const[showLeftNav,setShowLeftNav]=useState(false)
@@ -128,9 +129,6 @@ if(auth.uid === null){
       });
    connectionIds.forEach(async (c)=>{
     const oppositeRef = doc(db, "users",c.userId , "Splits", c.splitId);
-
-    
-
     await updateDoc(oppositeRef, {
         connections: arrayRemove({
           avatar:split.avatar,
@@ -141,6 +139,13 @@ if(auth.uid === null){
         })
     });
    })
+
+   const ParticipantsRef = doc(db, "Events", split.eventId);
+      
+   // Atomically increment the population of the city by 50.
+   await updateDoc(ParticipantsRef, {
+      participantNo:increment(-1)
+   });
 
     } catch (error) {
       console.log("error in deleting", error);

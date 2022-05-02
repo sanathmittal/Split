@@ -6,7 +6,7 @@ html {
   background: rgba(240, 238, 238, 0.933);
   padding: 0.6rem 1rem;
   max-width: 35rem;
-  margin: 0.2rem 1.2rem;
+  margin: 0.2rem;
   border-radius: 2rem;
   font-size: 1.8rem;
   gap: 1.2rem;
@@ -23,7 +23,7 @@ html {
   width: 11rem;
 }
 
-.display-none {
+.display-none-message {
   display: none;
   pointer-events: none;
 }
@@ -43,6 +43,8 @@ html {
 
 .message-sent > div {
   background-color: #c9fcc9;
+  margin-left: 6.4rem;
+  margin-right: 1.2rem;
   cursor: pointer;
 }
 
@@ -50,6 +52,8 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-right: 6.4rem;
+  margin-left: 1.2rem;
   -webkit-box-pack: left;
       -ms-flex-pack: left;
           justify-content: left;

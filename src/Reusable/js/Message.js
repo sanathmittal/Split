@@ -6,7 +6,7 @@ import { db ,database} from "../../Firebase";
 
 function Message(props) {
 const [messageClass,setMessageClass]=useState("")
-const [deleteClass,setdeleteClass]=useState("display-none")
+const [deleteClass,setdeleteClass]=useState("display-none-message")
 const [showDelete,setShowDelete]=useState(false)
     useEffect(()=>{
         if(props.senderId === props.currentSplitId){
@@ -32,7 +32,7 @@ useEffect(()=>{
         setdeleteClass("display-block")
      }
      else{
-              setdeleteClass("display-none")
+              setdeleteClass("display-none-message")
      }
 },[showDelete,props.messageId])
 // const onDeleteClick=()=>{

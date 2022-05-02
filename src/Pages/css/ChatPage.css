@@ -103,6 +103,9 @@ html {
   height: 100vh;
   overflow-y: scroll;
   padding-bottom: 9.8rem;
+  display: block;
+  -ms-grid-column: 2;
+  grid-column: 2;
 }
 
 .chatarea::-webkit-scrollbar {
@@ -154,6 +157,7 @@ html {
   left: 0;
   right: 66.6%;
   z-index: 1;
+  display: block;
   overflow-y: scroll;
 }
 
@@ -168,10 +172,35 @@ html {
   font-size: 2.2rem;
 }
 
-@media (max-width: 75em) {
+.display-none {
+  display: block;
+}
+
+.chatarea-backarrow {
+  display: none;
+}
+
+@media (max-width: 51em) {
   .chatpage__container {
-    -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
+    display: block;
+  }
+  .chatarea-topNav {
+    left: 0;
+  }
+  .chatpage__connections {
+    right: 0;
+  }
+  .chatpage__topnav {
+    right: 0;
+  }
+  .display-none {
+    display: none;
+  }
+  .chatpage__splitdropdown {
+    margin-left: 4rem;
+  }
+  .chatarea-backarrow {
+    display: block;
   }
 }
 /*# sourceMappingURL=ChatPage.css.map */

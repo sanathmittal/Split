@@ -31,6 +31,7 @@ function ChatPage() {
   const [showSplitDropdown, setshowSplitDropdown] = useState(false);
   const [userSplits, setUserSplits] = useState([]);
   const [text, setText] = useState("");
+  const [showchatArea,setShowChatarea]=useState(false)
   const [currentSplit, setCurrentSplit] = useState({
     name: "",
     avatar: "",
@@ -43,6 +44,7 @@ function ChatPage() {
     id: "",
   });
   const auth = useContext(AuthContext);
+
 
   useEffect(() => {
     if (!window.localStorage.getItem("currentChatSplitId")) {
@@ -160,7 +162,7 @@ function ChatPage() {
           return;
         }
         setMessages(dataArray);
-        console.log(dataArray)
+        console.log(dataArray);
         // updateStarCount(postElement, data);
       });
     }
@@ -213,97 +215,102 @@ function ChatPage() {
             }}
           ></Backdrop>
         )}
-        <div className="chatpage__topnav">
-          <div className="chatpage__topnav-top">
-            <img
-              onClick={() => {
-                setShowLeftNav(true);
-              }}
-              src={menu}
-            ></img>
-            <img
-              className="chatpage__topnav-top-profileimg"
-              src={girl}
-              onClick={() => Navigate(`/profile/${auth.uid}`)}
-            ></img>
-          </div>
-          <div className="chatpage__topnav-bottom">
-            <img src={arrowBack}></img>
-            <div className="chatpage__topnav-split">
-              <img src={currentSplit.avatar}></img>
-              <p>{currentSplit.name}</p>
-              <img
-                className="chatpage__topnav-bottom-dropdownicon"
-                src={downarrow}
-                onClick={() => {
-                  setshowSplitDropdown((prev) => !prev);
-                }}
 
-                // className="chatpage__topnav-dropdownicon"
+        {/* <Breakpoint customQuery="(min-width: 1200px)"> */}
+        <div className={`chatpage__connections ${showchatArea  && 'display-none'}`} >
+  
+          <div className="chatpage__topnav">
+            <div className="chatpage__topnav-top">
+              <img
+                onClick={() => {
+                  setShowLeftNav(true);
+                }}
+                src={menu}
               ></img>
-              {showSplitDropdown && (
-                <div className="chatpage__splitdropdown">
-                  {userSplits.map((split) => (
-                    <div
-                      key={split.splitId}
-                      className="chatpage__splitdropdown-split"
-                      onClick={() => {
-                        setCurrentSplit({
-                          avatar: split.avatar,
-                          name: split.name,
-                          id: split.splitId,
-                          connections: split.connections,
-                        });
-                        setshowSplitDropdown(false);
-                        setcurrentConnection({
-                          id: "",
-                          name: "",
-                          avatar: "",
-                        });
-                      }}
-                    >
-                      <img src={split.avatar}></img>
-                      <p>{split.name}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <img
+                className="chatpage__topnav-top-profileimg"
+                src={girl}
+                onClick={() => Navigate(`/profile/${auth.uid}`)}
+              ></img>
+            </div>
+            <div className="chatpage__topnav-bottom">
+              <img src={arrowBack}></img>
+              <div className="chatpage__topnav-split">
+                <img src={currentSplit.avatar}></img>
+                <p>{currentSplit.name}</p>
+                <img
+                  className="chatpage__topnav-bottom-dropdownicon"
+                  src={downarrow}
+                  onClick={() => {
+                    setshowSplitDropdown((prev) => !prev);
+                  }}
+
+                  // className="chatpage__topnav-dropdownicon"
+                ></img>
+                {showSplitDropdown && (
+                  <div className="chatpage__splitdropdown">
+                    {userSplits.map((split) => (
+                      <div
+                        key={split.splitId}
+                        className="chatpage__splitdropdown-split"
+                        onClick={() => {
+                          setCurrentSplit({
+                            avatar: split.avatar,
+                            name: split.name,
+                            id: split.splitId,
+                            connections: split.connections,
+                          });
+                          setshowSplitDropdown(false);
+                          setcurrentConnection({
+                            id: "",
+                            name: "",
+                            avatar: "",
+                          });
+                        }}
+                      >
+                        <img src={split.avatar}></img>
+                        <p>{split.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
+          {currentSplit.connections.map((connection) => (
+            <ChatCard
+              name={connection.name}
+              avatar={connection.avatar}
+              key={connection.splitId}
+              onClick={() => {
+                setcurrentConnection({
+                  name: connection.name,
+                  avatar: connection.avatar,
+                  id: connection.splitId,
+                });
+                setShowChatarea(true)
+              }}
+              currentConnectionid={currentConnection.id}
+              id={connection.splitId}
+            ></ChatCard>
+          ))}
+         
+          {/* <button onClick={()=>{console.log(messages,currentConnection.name,currentSplit.name,result)}}>Messages</button> */}
+          {currentSplit.connections.length === 0 && (
+            <p className="chatpage-noconnectionmessage">
+              {" "}
+              This Split has no connections
+            </p>
+          )}
         </div>
-        <div className="chatarea-topNav">
-          <img src={currentConnection.avatar}></img>
-          <p>{currentConnection.name}</p>
-        </div>
-        {/* <Breakpoint customQuery="(min-width: 1200px)"> */}
-          <div className="chatpage__connections">
-            {currentSplit.connections.map((connection) => (
-              <ChatCard
-                name={connection.name}
-                avatar={connection.avatar}
-                key={connection.splitId}
-                onClick={() => {
-                  setcurrentConnection({
-                    name: connection.name,
-                    avatar: connection.avatar,
-                    id: connection.splitId,
-                  });
-                }}
-                currentConnectionid={currentConnection.id}
-                id={connection.splitId}
-              ></ChatCard>
-            ))}
-            {/* <button onClick={()=>{console.log(messages,currentConnection.name,currentSplit.name,result)}}>Messages</button> */}
-            {currentSplit.connections.length === 0 && (
-              <p className="chatpage-noconnectionmessage">
-                {" "}
-                This Split has no connections
-              </p>
-            )}
-          </div>
         {/* </Breakpoint> */}
         <LeftNavMobile show={showLeftNav}></LeftNavMobile>
-        <div ref={messageDivRef} className="chatarea">
+        <div ref={messageDivRef} className={`chatarea ${!showchatArea && 'display-none'}` }>
+          <div className="chatarea-topNav">
+            <img className="chatarea-backarrow" src={arrowBack} onClick={()=>{setShowChatarea(false)}}></img>
+            <img src={currentConnection.avatar}></img>
+            <p>{currentConnection.name}</p>
+          </div>
           {messages.map((message) => (
             <Message
               onDeleteMessage={DeleteMessage}
@@ -314,18 +321,16 @@ function ChatPage() {
             >
               {message.text}
             </Message>
-        
-          ))}  
-            {/* <Image src={girl4} ></Image> */}
+          ))}
+          {/* <Image src={girl4} ></Image> */}
 
           <div ref={messagesEndRef} />
+          <ChatForm
+            currentSplitId={currentSplit.id}
+            currentConnectionId={currentConnection.id}
+          ></ChatForm>
         </div>
         {/* <ImagePreview></ImagePreview>  */}
-
-        <ChatForm
-          currentSplitId={currentSplit.id}
-          currentConnectionId={currentConnection.id}
-        ></ChatForm>
 
         {/* <Breakpoint customQuery="(min-width: 1200px)">
             <RightNav></RightNav>

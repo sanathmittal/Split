@@ -6,10 +6,10 @@ html{
     ;
     padding: 0.6rem 1rem;
     max-width: 35rem;
-    margin: 0.2rem 1.2rem;
+    margin: 0.2rem ;
     border-radius: 2rem;
     font-size: 1.8rem;
-  
+    
   //  display: flex;
     gap: 1.2rem;
 }
@@ -23,7 +23,7 @@ html{
   box-shadow: (2px 2px 4px rgb(143, 142, 142));
   width: 11rem;
 }
-.display-none{
+.display-none-message{
   display: none;
 pointer-events: none;
 }
@@ -38,10 +38,13 @@ pointer-events: none;
 }
 .message-sent>div{
   background-color: #c9fcc9;
+  margin-left: 6.4rem;
+  margin-right: 1.2rem;
     cursor: pointer;
 }
 .message-recived{
   display: flex;
-  
+  margin-right: 6.4rem;
+  margin-left: 1.2rem;
   justify-content: left;
 }

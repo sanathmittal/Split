@@ -4,6 +4,8 @@ import { CSSTransition } from "react-transition-group";
 import { doc,  onSnapshot,updateDoc, arrayUnion, arrayRemove, addDoc, setDoc } from "firebase/firestore";
 import {db} from "../../../Firebase"
 import { AuthContext } from "../../../Context";
+import Loading from "../../../Reusable/js/Loading"
+import WhiteBackdrop from "../../../Reusable/js/WhiteBackDrop"
 
 function ProfileDetailModal(props) {
 const[connectionStatus,setConnectionStatus]=useState()
@@ -11,6 +13,7 @@ const [connections,setConnections]=useState([])
 const [connectionRequests,setConectionRequests]=useState([])
 const [buttonStyle,setbuttonStyle]=useState("")
 const [buttonText,setbuttonText]=useState("")
+const [loading,setLoading]=useState(false)
     const auth=useContext(AuthContext)
 
 useEffect(()=>{
@@ -118,6 +121,7 @@ if(connectionStatus ===false){
 
 
 const onConnectClick= async ()=>{
+  setLoading(true)
     const washingtonRef = doc(db, "users",props.userId,"Splits", props.viewSplitId);
 
     
@@ -142,6 +146,7 @@ const onConnectClick= async ()=>{
   });
   
      setConnectionStatus("requested")
+     setLoading(false)
 }
 
   return (
@@ -154,6 +159,8 @@ const onConnectClick= async ()=>{
     >
     
       <div className="profiledetailmodal">
+        {loading && <Loading></Loading> }
+        {loading && <WhiteBackdrop></WhiteBackdrop>}
         <div className="profiledetailmodal-top">
           <img src={props.avatar}></img>
           <p>

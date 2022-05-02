@@ -604,6 +604,19 @@ a:hover {
   .features-heading {
     font-size: 4rem;
   }
+  .feature-card {
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+    padding: 2rem;
+    height: 43rem;
+  }
+  .feature-img {
+    height: 15rem;
+  }
+  .feature-des {
+    color: #6f6f6f;
+    font-size: 1.8rem;
+  }
   .step {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;

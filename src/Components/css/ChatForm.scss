@@ -25,3 +25,8 @@ html{
     padding-left: 1rem;
     margin-top: 0.3rem;
 }
+@media (max-width: 51em) {
+.chatform-input{
+    left: 0;
+}
+}

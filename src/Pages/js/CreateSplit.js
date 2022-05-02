@@ -22,6 +22,7 @@ import {
   setDoc,
   arrayUnion,
   updateDoc,
+  increment ,
   serverTimestamp,
 } from "firebase/firestore";
 import { AuthContext } from "../../Context";
@@ -130,19 +131,24 @@ console.log(docRef.id,"this is its")
         connectionRequests:[],
         choices: choices,
       });
-      // await setDoc(doc(db, "cities", "LA"), {
-      //   name: "Los Angeles",
-      //   state: "CA",
-      //   country: "USA"
-      // });
-
-      console.log("after this")
+      
+      
       const washingtonRef = doc(db, "users", auth.uid);
 
       await updateDoc(washingtonRef, {
         Events: arrayUnion(eventId.eid),
 
       });
+
+    
+
+      const ParticipantsRef = doc(db, "Events", eventId.eid);
+      
+      // Atomically increment the population of the city by 50.
+      await updateDoc(ParticipantsRef, {
+         participantNo:increment(1)
+      });
+
       console.log("Document written with ID: ", docRef.id);
    
 
